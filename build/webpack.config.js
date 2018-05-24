@@ -8,9 +8,9 @@ const devServer = {
 	overlay: {
 		errors: true
 	},
-	// historyApiFallback: {
-	// 	index: '/public/index.html'
-	// },//history模式手动刷新url会发送请求，出现错误
+	historyApiFallback: {
+		index: '/public/index.html'
+	},//history模式手动刷新url会发送请求，出现错误
 	hot: true
 }
 
