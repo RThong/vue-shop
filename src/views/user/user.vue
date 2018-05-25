@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<router-view></router-view>
-		<Footer></Footer>
+		我的页面
 	</div>
 </template>
 <script>
@@ -12,7 +11,7 @@
 			}
 		},
 		components: {
-			Footer: () => import('./views/footer/footer.vue')
+			
 		}
 	}
 </script>

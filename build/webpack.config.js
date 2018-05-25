@@ -5,11 +5,12 @@ const webpack = require('webpack')
 
 const devServer = {
 	port: 8080,
+	host: '0.0.0.0',
 	overlay: {
 		errors: true
 	},
 	historyApiFallback: {
-		index: '/public/index.html'
+		index: '/index.html'
 	},//history模式手动刷新url会发送请求，出现错误
 	hot: true
 }
@@ -43,11 +44,31 @@ const config = {
       			sourceMap: true,
       		}
       	},
-      	'sass-loader'    	
+      	'sass-loader',
+      	{
+          loader: 'sass-resources-loader',
+          options: {
+            // Provide path to the file with resources
+            resources: path.join(__dirname, '../src/assets/styles/global.scss'),
+          },
+        }, 	
       	]
+      },
+      {
+        test: /\.(gif|jpg|jpeg|png|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1024,
+              name: 'resources/[path][name].[hash:8].[ext]'
+            }
+          }
+        ]
       }
 		]
 	},
+	devServer,
 	plugins: [
 		new VueLoaderPlugin(),
     new HTMLPlugin({

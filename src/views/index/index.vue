@@ -1,33 +1,39 @@
 <template>
 	<div>
 		<div class="tab">
-			<div v-for="index in 2" @click="tiggle(index)">{{index}}</div>
+			<div :class="curTabIndex===index?'active tab-label':'tab-label'" v-for="(item,index) in tabList" @click="tabChange(index)">
+				<span>{{item}}</span>
+			</div>
 		</div>
 		<div class="tab-container">
-			<div v-show="a===index" class="bodys" v-for="index in 2" >
+			<div v-show="curTabIndex===index" class="bodys" v-for="(item,index) in 2" >
 				<div :class="`component-list-main tabindex${index}`"></div>
 			</div>
 		</div>
+
+
 	</div>
 </template>
 <script>
 	import Vue from 'vue'
 	import Computer from '../computer/computer.vue'
 	import Tv from '../tv/tv.vue'
-	let obj = [
-		{
-			component: Computer,
-			show: false
-		},
-		{
-			component: Tv,
-			show: false
-		}
-	]
+
 	export default {
 		data() {
 			return {
-				a: 1,
+				curTabIndex: 0,
+				tabList: ['推荐','手机','智能','电视','电脑','双摄','全面屏','生活周边','盒子'],
+				pageList: [
+					{
+						component: Computer,
+						show: false
+					},
+					{
+						component: Tv,
+						show: false
+					}
+				]
 			}
 		},
 		components: {
@@ -35,20 +41,21 @@
 			// Tv: () => import('../tv/tv.vue')
 			// Computer,
 			// Tv
+			Footer: () => import('../footer/footer.vue')
 		},
 		mounted() {
 		},
 		computed: {
 		},
 		methods: {
-			tiggle(index) {
-				this.a = index
-				console.dir(this)
-				if(!obj[index-1].show){
+			tabChange(index) {
+				this.curTabIndex = index
+
+				if(!this.pageList[index].show){
 					let instance
-					instance = Vue.extend(obj[index-1].component)
+					instance = Vue.extend(this.pageList[index].component)
 					new instance().$mount(`.tabindex${index}`)
-					obj[index-1].show = true
+					this.pageList[index].show = true
 				}
 			}
 		}
@@ -57,15 +64,24 @@
 <style lang="scss" scoped>
 	.tab{
 		white-space: nowrap;
-		letter-spacing: -0.5em;
 		overflow-x: auto;
-		div{
-			background: green;
-			/*height: 200px;*/
-			width: 20%;
+		.tab-label{
+			background: $bgColor;
 			text-align: center;
 			display: inline-block;
-			padding: 20px;
-		}		
+			padding: 0 13px;
+			height: 34px;
+			span{
+				display: inline-block;
+				color: #747474;
+				height: 100%;
+				font-size: 14px;
+				line-height: 32px;				
+			}
+		}
+		.tab-label.active span{
+			border-bottom: 2px solid $mainColor;
+		}	
 	}
+
 </style>
