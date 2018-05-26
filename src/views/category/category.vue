@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="s">
 		分类页面
 	</div>
 </template>
@@ -15,3 +15,6 @@
 		}
 	}
 </script>
+<style lang="scss" scoped>
+
+</style>

@@ -5,7 +5,8 @@ module.exports = {
   plugins: [
     autoprefixer(),
     pxToViewport({
-    	viewportWidth: 375
+    	viewportWidth: 375,
+    	selectorBlackList: [/^.app-view-wrapper$/]
     })
   ]
 }

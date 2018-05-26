@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="s">
 		<div class="tab">
 			<div :class="curTabIndex===index?'active tab-label':'tab-label'" v-for="(item,index) in tabList" @click="tabChange(index)">
 				<span>{{item}}</span>
@@ -41,7 +41,6 @@
 			// Tv: () => import('../tv/tv.vue')
 			// Computer,
 			// Tv
-			Footer: () => import('../footer/footer.vue')
 		},
 		mounted() {
 		},

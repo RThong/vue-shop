@@ -1,27 +1,27 @@
 <template>
 	<footer>
 		<ul>
-			<li @click="curNavIndex=0">
+			<li @click="curNavIndex=0" :class="curNavIndex===0?'active':''">
 				<router-link to="/">
-					<i :class="curNavIndex===0?'image-icons icon-index active':'image-icons icon-index'"></i>
+					<i class="image-icons icon-index"></i>
 					<span>首页</span>
 				</router-link>
 			</li>
-			<li @click="curNavIndex=1">
+			<li @click="curNavIndex=1" :class="curNavIndex===1?'active':''">
 				<router-link to="/category">
-					<i :class="curNavIndex===1?'image-icons icon-category active':'image-icons icon-category'"></i>
+					<i class="image-icons icon-category"></i>
 					<span>分类</span>
 				</router-link>
 			</li>
-			<li @click="curNavIndex=2">
+			<li @click="curNavIndex=2" :class="curNavIndex===2?'active':''">
 				<router-link to="/cart">
-					<i :class="curNavIndex===2?'image-icons icon-cart active':'image-icons icon-cart'"></i>
+					<i class="image-icons icon-cart"></i>
 					<span>购物车</span>
 				</router-link>
 			</li>
-			<li @click="curNavIndex=3">
+			<li @click="curNavIndex=3" :class="curNavIndex===3?'active':''">
 				<router-link to="/user">
-					<i :class="curNavIndex===3?'image-icons icon-user active':'image-icons icon-user'"></i>
+					<i class="image-icons icon-user"></i>
 					<span>我的</span>
 				</router-link>
 			</li>
@@ -36,9 +36,15 @@
 				curNavIndex: 0
 			}
 		},
+		mounted() {
+			this.firstEnter()
+		},
 		methods: {
-			a(){
-				console.log('!!!')
+			firstEnter() {
+				if(this.$route.matched.length === 0){
+					return
+				}
+				this.curNavIndex = this.$route.meta.navIndex			
 			}
 		}
 	}
@@ -54,11 +60,13 @@ footer{
 		display: flex;
 		li{
 			width: 25%;
-			height: 52px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			height: 52px;			
 			a{
+				display: flex;
+				height: 100%;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
 				font-size: 12px;
 				color: #999;
 				i{
@@ -71,33 +79,37 @@ footer{
 					background-position: 50%;
 					background-size: cover;
 				}
-				.icon-index{
-					background-image: url(../../assets/images/icon-index.png);
-				}
-				.icon-index.active{
-					background-image: url(../../assets/images/icon-index-active.png);
-				}
-				.icon-category{
-					background-image: url(../../assets/images/icon-category.png);
-				}
-				.icon-category.active{
-					background-image: url(../../assets/images/icon-category-active.png);
-				}
-				.icon-cart{
-					background-image: url(../../assets/images/icon-cart.png);
-				}
-				.icon-cart.active{
-					background-image: url(../../assets/images/icon-cart-active.png);
-				}
-				.icon-user{
-					background-image: url(../../assets/images/icon-user.png);
-				}
-				.icon-user.active{
-					background-image: url(../../assets/images/icon-user-active.png);
-				}
-			}
+  		}
 			
 		}
+		.active span{
+			color: $mainColor;
+		}
+		.icon-index{
+			background-image: url(../../assets/images/icon-index.png);
+		}
+		.active .icon-index{
+			background-image: url(../../assets/images/icon-index-active.png);
+		}
+		.icon-category{
+			background-image: url(../../assets/images/icon-category.png);
+		}
+		.active .icon-category{
+			background-image: url(../../assets/images/icon-category-active.png);
+		}
+		.icon-cart{
+			background-image: url(../../assets/images/icon-cart.png);
+		}
+		.active .icon-cart{
+			background-image: url(../../assets/images/icon-cart-active.png);
+		}
+		.icon-user{
+			background-image: url(../../assets/images/icon-user.png);
+		}
+		.active .icon-user{
+			background-image: url(../../assets/images/icon-user-active.png);
+		}
+
 	}
 }
 </style>
