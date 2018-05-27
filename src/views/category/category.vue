@@ -1,5 +1,5 @@
 <template>
-	<div class="s">
+	<div class="container">
 		分类页面
 	</div>
 </template>
@@ -9,9 +9,6 @@
 			return {
 				
 			}
-		},
-		components: {
-			
 		}
 	}
 </script>

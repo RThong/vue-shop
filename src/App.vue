@@ -22,7 +22,7 @@
 			// },400)	
 		},
 		components: {
-			Footer: () => import('./views/footer/footer.vue')
+			Footer: () => import('./components/footer/footer.vue')
 		},
 		watch: {
 			'$route' (to, from) {
@@ -37,10 +37,10 @@
 	}
 </script>
 <style lang="scss" scoped>
-#app{
-	height: 100%;
-	width: 100%;
-}
+	#app{
+		height: 100%;
+		width: 100%;
+	}
 	.app-view-wrapper{
 		position: relative;
     overflow: hidden;

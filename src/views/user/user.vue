@@ -1,5 +1,5 @@
 <template>
-	<div class="s">
+	<div class="container">
 		我的页面
 	</div>
 </template>

@@ -1,17 +1,16 @@
 <template>
-	<div class="container">
-		购物车页面
+	<div>
+		computer
 	</div>
 </template>
 <script>
 	export default {
-		data(){
+		// props: ['text'],
+		name: 'computer',
+		data() {
 			return {
-				
+
 			}
-		},
-		components: {
-			
 		}
 	}
 </script>

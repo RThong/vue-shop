@@ -1,11 +1,12 @@
 <template>
 	<div>
-		tv
+		computer
 	</div>
 </template>
 <script>
 	export default {
-		name: 'tv',
+		// props: ['text'],
+		name: 'computer',
 		data() {
 			return {
 
