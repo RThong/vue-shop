@@ -1,28 +1,31 @@
 <template>
 	<div id="app">
-		<div class="app-view-wrapper">
+		<!-- <div class="app-view-wrapper">
 			<transition :name="transitionName">
 				<router-view></router-view>
 			</transition>
 		</div>
-		<Footer></Footer>
+		<Footer></Footer> -->
+		<Header :isSearchPage="false">分类</Header>
 	</div>
 </template>
 <script>
 	export default {
 		data(){
 			return {
-				// firstShow: false
-				transitionName: ''
+				transitionName: '',
 			}
 		},
-		mounted() {
-			// setTimeout(() => {
-			// 	this.firstShow = true
-			// },400)	
+		mounted() {	
 		},
 		components: {
-			Footer: () => import('./components/footer/footer.vue')
+			Footer: () => import('./components/footer/footer.vue'),
+			Header: () => import('./components/header/header.vue'),
+		},
+		computed: {
+			// show() {
+			// 	return this.$store.state.footerIsShow
+			// }
 		},
 		watch: {
 			'$route' (to, from) {

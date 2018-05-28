@@ -1,19 +1,31 @@
 <template>
 	<div class="container">
 		<header class="header">
+			<div class="app-header-wrapper">
+				<div class="app-header-left">
+					<div class="app-header-item">
+						<img src="../../assets/images/logo.png" alt="">
+					</div>
+				</div>
+				<div class="app-header-middle" @click="$store.commit('setFooterIsShow')">
+					<div class="search-wrapper">
+						<i class="image-icons icon-search"></i>
+						<span class="search-text">搜索商品名称</span>
+					</div>
+				</div>
+				<div class="app-header-right" @click="goUser">
+					<div class="app-header-item">
+						<i class="image-icons icon-user"></i>
+					</div>
+				</div>
+			</div>
 			<div class="tab">
 				<div :class="curTabIndex===index?'active tab-label':'tab-label'" v-for="(item,index) in tabList" @click="tabChange(index)">
 					<span>{{item.name}}</span>
 				</div>
 			</div>
 		</header>
-		<div class="page-wrapper">
-			<!-- <div v-show="curTabIndex===index" class="bodys" v-for="(item,index) in 2">
-				<div :class="`component-list-main tabindex${index}`"></div>
-			</div> -->
-			<!-- <div ：class="curTabIndex===index?'bodys slide-left-enter':" v-for="(item,index) in 2">
-				<div :class="`component-list-main tabindex${index}`"></div>
-			</div> -->
+		<div class="page-wrapper">		
 			<transition :name="transitionName">
 				<component :is="tabList[curTabIndex].component" class="bodys"></component>
 			</transition>
@@ -83,6 +95,10 @@
 				this.curTabIndex = index
 
 				this.transitionName = this.curTabIndex < this.lastTabIndex ? 'slide-right' : 'slide-left'
+			},
+			goUser() {
+				this.$store.commit('setNavIndex', 3)
+				this.$router.push('user')
 			}
 		}
 	}
@@ -96,6 +112,50 @@
     z-index: 99;
     box-shadow: 0 2px 4px -1px rgba(0,0,0,.2);
     background: #f2f2f2;
+    .app-header-wrapper{
+    	height: 50px;
+    	display: flex;
+    	align-items: center;
+    	.app-header-item{
+    		width: 31px;
+    		margin: 0 13px; 
+    	}
+    	.image-icons{
+    		width: 31px;
+    		height: 31px;
+    		display: block;
+    	}
+    	.app-header-left{
+				img{
+					display: block;
+					width: 25px;				
+				}
+    	}   	
+    	.app-header-middle{
+    		flex: 1;
+    		border: 1px solid #e8e8e8;
+    		font-size: 14px;
+				.search-wrapper{
+					display: flex;
+					height: 31px;					
+					background: #fff;
+					align-items: center;
+					.icon-search{
+						background-image: url(../../assets/images/icon-search.png);
+						background-size: 22px 22px;
+					}
+					.search-text{
+						color: #cbcbcb;
+					}
+				}
+    	}
+    	.app-header-right{
+				.icon-user{
+					background-image: url(../../assets/images/icon-user.png);
+					background-size: 20px 20px;
+				}			
+    	}
+    }
 		.tab{			
 			/*z-index: 2;		*/
 			white-space: nowrap;
@@ -122,14 +182,15 @@
 	.page-wrapper{
 		position: relative;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     .bodys{
     	position: absolute;
-    	top: 34px;
+    	top: 84px;
     	left: 0;
     	width: 100%;
-    	height: 7000px;
+    	height: 100%;
+    	overflow-x: hidden;
+    	overflow-y: auto;
     	transition:transform .4s cubic-bezier(.55,0,.1,1);
     }
 	}
