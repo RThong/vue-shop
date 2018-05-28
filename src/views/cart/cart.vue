@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="app-view app-view-with-footer">
 		购物车页面
 	</div>
 </template>

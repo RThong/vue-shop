@@ -7,15 +7,29 @@ export default () => {
 		strict: isDev,
 		state: {
 			curNavIndex: 0,
-			footerIsShow: true
+			footerIsShow: true,
+			pullPageSlide: ''
 		},
 		mutations: {
 			setNavIndex(state, index) {
+				if(index > state.curNavIndex){
+					state.pullPageSlide = 'slide-left'
+				}
+				else if(index < state.curNavIndex){
+					state.pullPageSlide = 'slide-right'
+				}
 				state.curNavIndex = index
 			},
 			setFooterIsShow(state) {
-				console.log(1111)
 				state.footerIsShow = !state.footerIsShow
+			},
+			setPullPageSlide(state, direct) {
+				if(direct === -1) {
+					state.pullPageSlide = 'slide-right'
+				}
+				else if(direct === 1){
+					state.pullPageSlide = 'slide-left'
+				}
 			}
 		}
 	})

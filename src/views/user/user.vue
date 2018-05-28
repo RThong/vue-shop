@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="app-view app-view-with-footer">
 		我的页面
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<div class="header-left">
+		<div class="header-left" @click="goBack">
 			<div class="header-item">
 				<i class="image-icons icon-left-arrow"></i>
 			</div>
@@ -30,7 +30,11 @@
 			}
 		},
 		mounted() {
-			console.log(typeof this.isSearchPage)
+		},
+		methods: {
+			goBack(){
+				this.$emit('back')
+			}
 		}
 	}
 </script>

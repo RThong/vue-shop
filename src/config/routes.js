@@ -2,7 +2,10 @@ export default [
 	{
 		path: '/',
 		name: 'index',
-		component: () => import('../views/index/index.vue'),
+		components: {
+			default: () => import('../views/index/index.vue'),
+			footer: () => import('../components/footer/footer.vue')
+		},
 		meta: {
 			navIndex: 0
 		}
@@ -10,7 +13,10 @@ export default [
 	{
 		path: '/category',
 		name: 'category',
-		component: () => import('../views/category/category.vue'),
+		components: {
+			default: () => import('../views/category/category.vue'),
+			footer: () => import('../components/footer/footer.vue')
+		},
 		meta: {
 			navIndex: 1
 		}
@@ -18,7 +24,10 @@ export default [
 	{
 		path: '/cart',
 		name: 'cart',
-		component: () => import('../views/cart/cart.vue'),
+		components: {
+			default: () => import('../views/cart/cart.vue'),
+			footer: () => import('../components/footer/footer.vue')
+		},
 		meta: {
 			navIndex: 2
 		}
@@ -26,9 +35,17 @@ export default [
 	{
 		path: '/user',
 		name: 'user',
-		component: () => import('../views/user/user.vue'),
+		components: {
+			default: () => import('../views/user/user.vue'),
+			footer: () => import('../components/footer/footer.vue')
+		},
 		meta: {
 			navIndex: 3
 		}
+	},
+	{
+		path: '/search',
+		name: 'search',
+		component: () => import('../views/search/search.vue')
 	},
 ]

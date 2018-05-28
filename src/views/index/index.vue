@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="app-view app-view-with-footer">
 		<header class="header">
 			<div class="app-header-wrapper">
 				<div class="app-header-left">
@@ -7,7 +7,8 @@
 						<img src="../../assets/images/logo.png" alt="">
 					</div>
 				</div>
-				<div class="app-header-middle" @click="$store.commit('setFooterIsShow')">
+				 <!-- @click="$store.commit('setFooterIsShow')" -->
+				<div class="app-header-middle" @click="goSearch">
 					<div class="search-wrapper">
 						<i class="image-icons icon-search"></i>
 						<span class="search-text">搜索商品名称</span>
@@ -99,6 +100,10 @@
 			goUser() {
 				this.$store.commit('setNavIndex', 3)
 				this.$router.push('user')
+			},
+			goSearch() {
+				this.$store.commit('setPullPageSlide', 1)
+				this.$router.push('search')
 			}
 		}
 	}

@@ -6,14 +6,19 @@
 			</transition>
 		</div>
 		<Footer></Footer> -->
-		<Header :isSearchPage="false">分类</Header>
+		<!-- <Header :isSearchPage="false">分类</Header> -->
+		<div class="app-view-wrapper">
+			<transition :name="transitionName">
+				<router-view></router-view>			
+			</transition>
+			<router-view name="footer"></router-view>
+		</div>
 	</div>
 </template>
 <script>
 	export default {
 		data(){
 			return {
-				transitionName: '',
 			}
 		},
 		mounted() {	
@@ -23,9 +28,9 @@
 			Header: () => import('./components/header/header.vue'),
 		},
 		computed: {
-			// show() {
-			// 	return this.$store.state.footerIsShow
-			// }
+			transitionName() {
+				return this.$store.state.pullPageSlide
+			}
 		},
 		watch: {
 			'$route' (to, from) {
@@ -33,8 +38,14 @@
 					return
 				}
 				const fromIndex = from.meta.navIndex
-				const toIndex = to.meta.navIndex				
-				this.transitionName = toIndex < fromIndex ? 'slide-right' : 'slide-left'
+				const toIndex = to.meta.navIndex
+				console.log(fromIndex,toIndex)	
+				if(toIndex < fromIndex)	{
+					this.$store.commit('setPullPageSlide', -1)
+				}
+				else if(toIndex > fromIndex) {
+					this.$store.commit('setPullPageSlide', 1)
+				}
 			}
 		}
 	}
