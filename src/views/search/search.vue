@@ -1,6 +1,6 @@
 <template>
-	<div class="app-view app-view-with-header">
-		<Header @back="goBack" :isSearchPage="true"/>
+	<div class="app-view">
+		<Header :isSearchPage="true"/>
 	</div>
 </template>
 <script>
@@ -17,10 +17,11 @@
 			Header
 		},
 		methods: {
-			goBack() {
-				this.$store.commit('setPullPageSlide', -1)
-				this.$router.push('/')
-			}			
+			// goBack() {
+			// 	// this.$store.commit('setPullPageSlide', -1)
+			// 	// this.$router.push('/')
+			// 	this.$router.go(-1)
+			// }			
 		}
 	}
 </script>

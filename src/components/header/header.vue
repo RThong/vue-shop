@@ -33,18 +33,24 @@
 		},
 		methods: {
 			goBack(){
-				this.$emit('back')
+				this.$router.go(-1)
 			}
 		}
 	}
 </script>
 <style lang="scss" scoped>
 	.header{
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 999;
+		width: 100%;
 		height: 50px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		box-shadow: 0 2px 4px -1px rgba(0,0,0,.2);
+		background: $bgColor;
 		.header-item{
 			margin: 0 13px;
 		}

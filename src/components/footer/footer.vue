@@ -1,5 +1,5 @@
 <template>
-	<footer :class="className" v-show="isShow">
+	<footer>
 		<ul>
 			<li @click="changeNav(0)" :class="curNavIndex===0?'active':''">
 				<router-link to="/">
@@ -33,10 +33,6 @@
 		name: 'Footer',
 		data() {
 			return {
-				// curNavIndex: 0
-				className: '',
-				isShow: true,
-				timer: ''
 			}
 		},
 		mounted() {
@@ -46,30 +42,6 @@
 			curNavIndex() {
 				return this.$store.state.curNavIndex
 			},
-			show() {
-				return this.$store.state.footerIsShow
-			}
-		},
-		watch: {
-			//footer动画
-			show: function(newValue) {
-				if(this.timer){
-					clearTimeout(this.timer)
-				}
-				if(newValue){
-					this.isShow = true
-					this.timer = setTimeout(() => {
-						this.className = ''
-					},100)
-					
-				}
-				else{
-					this.className = 'slide-leave-to'
-					this.timer = setTimeout(() => {
-						this.isShow = false
-					}, 200)
-				}
-			}
 		},
 		methods: {
 			firstEnter() {
@@ -86,7 +58,6 @@
 </script>
 <style lang="scss" scoped>
 footer{
-	transition: transform .2s ease-out;
 	position: fixed;
 	bottom: 0;
 	left: 0;

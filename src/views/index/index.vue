@@ -87,6 +87,7 @@
 			Tv: () => import('../../components/tv/tv.vue')
 		},
 		mounted() {
+			this.$store.commit('setHeaderIsShow', false)
 		},
 		computed: {
 		},
@@ -98,7 +99,6 @@
 				this.transitionName = this.curTabIndex < this.lastTabIndex ? 'slide-right' : 'slide-left'
 			},
 			goUser() {
-				this.$store.commit('setNavIndex', 3)
 				this.$router.push('user')
 			},
 			goSearch() {

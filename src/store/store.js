@@ -7,8 +7,10 @@ export default () => {
 		strict: isDev,
 		state: {
 			curNavIndex: 0,
-			footerIsShow: true,
-			pullPageSlide: ''
+			headerIsShow: false,
+			pullPageSlide: '',
+			headerText: '',
+
 		},
 		mutations: {
 			setNavIndex(state, index) {
@@ -20,8 +22,8 @@ export default () => {
 				}
 				state.curNavIndex = index
 			},
-			setFooterIsShow(state) {
-				state.footerIsShow = !state.footerIsShow
+			setHeaderIsShow(state, status) {
+				state.headerIsShow = status
 			},
 			setPullPageSlide(state, direct) {
 				if(direct === -1) {
@@ -30,6 +32,9 @@ export default () => {
 				else if(direct === 1){
 					state.pullPageSlide = 'slide-left'
 				}
+			},
+			setHeaderText(state, text) {
+				state.headerText = text
 			}
 		}
 	})

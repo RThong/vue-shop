@@ -1,17 +1,17 @@
 <template>
 	<div id="app">
-		<!-- <div class="app-view-wrapper">
-			<transition :name="transitionName">
-				<router-view></router-view>
-			</transition>
-		</div>
-		<Footer></Footer> -->
-		<!-- <Header :isSearchPage="false">分类</Header> -->
+		<!-- 跟/category和/cart不是一个动画  要单独组件 -->
+		<transition name="slide-up">
+			<Header v-show="headerIsShow" :isSearchPage="false">{{title}}</Header>
+		</transition>
+		<!-- 用于/search / 进行路由渲染 -->
 		<div class="app-view-wrapper">
 			<transition :name="transitionName">
-				<router-view></router-view>			
+				<router-view></router-view>	
 			</transition>
-			<router-view name="footer"></router-view>
+			<transition name="slide-down">
+				<router-view name="footer"></router-view>
+			</transition>
 		</div>
 	</div>
 </template>
@@ -21,25 +21,35 @@
 			return {
 			}
 		},
-		mounted() {	
+		mounted() {
 		},
 		components: {
-			Footer: () => import('./components/footer/footer.vue'),
-			Header: () => import('./components/header/header.vue'),
+			Header: () => import('./components/header/header.vue')
 		},
 		computed: {
 			transitionName() {
 				return this.$store.state.pullPageSlide
+			},
+			title() {
+				return this.$store.state.headerText
+			},
+			headerIsShow() {
+				return this.$store.state.headerIsShow
 			}
 		},
 		watch: {
+			//匹配底部nav改变路由
 			'$route' (to, from) {
-				if(from.matched.length === 0){
+				if(from.matched.length === 0 || from.meta.navIndex === undefined || to.meta.navIndex === undefined){
 					return
 				}
 				const fromIndex = from.meta.navIndex
 				const toIndex = to.meta.navIndex
-				console.log(fromIndex,toIndex)	
+
+				console.log(fromIndex,toIndex)
+
+				this.$store.commit('setNavIndex', toIndex)
+
 				if(toIndex < fromIndex)	{
 					this.$store.commit('setPullPageSlide', -1)
 				}
@@ -47,6 +57,8 @@
 					this.$store.commit('setPullPageSlide', 1)
 				}
 			}
+		},
+		methods: {
 		}
 	}
 </script>
