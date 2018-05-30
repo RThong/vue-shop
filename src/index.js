@@ -2,7 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Vuex from 'vuex'
 import App from './App.vue'
+import VueLazyload from 'vue-lazyload'
 
+
+Vue.use(VueLazyload, {
+  preLoad: 1,
+  // // error: 'dist/error.png',
+  loading: 'src/assets/images/loading.svg',
+  // attempt: 1
+})
 import './assets/styles/global.scss'
 
 import createRouter from './config/router'
