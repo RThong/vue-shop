@@ -26,10 +26,11 @@
 				</div>
 			</div>
 		</header>
-		<div class="page-wrapper">		
+		<div class="page-wrapper">
 			<transition :name="transitionName">
 				<component :is="tabList[curTabIndex].component" class="bodys"></component>
 			</transition>
+
 		</div>
 	</div>
 </template>
