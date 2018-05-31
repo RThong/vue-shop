@@ -35,8 +35,7 @@
 	</div>
 </template>
 <script>
-	import Vue from 'vue'
-
+	import Recommend from '../../components/recommend/recommend.vue'
 	export default {
 		data() {
 			return {
@@ -46,11 +45,11 @@
 				tabList: [
 					{
 						name: '推荐',
-						component: 'computer'
+						component: 'recommend'
 					},
 					{
 						name: '手机',
-						component: 'tv'
+						component: 'phone'
 					},
 					{
 						name: '智能',
@@ -84,8 +83,9 @@
 			}
 		},
 		components: {
+			Recommend,
 			Computer: () => import('../../components/computer/computer.vue'),
-			Tv: () => import('../../components/tv/tv.vue')
+			Phone: () => import('../../components/phone/phone.vue')
 		},
 		mounted() {
 			this.$store.commit('setHeaderIsShow', false)
@@ -193,8 +193,8 @@
     	position: absolute;
     	top: 84px;
     	left: 0;
+    	bottom: 0;
     	width: 100%;
-    	height: 100%;
     	overflow-x: hidden;
     	overflow-y: auto;
     	transition:transform .4s cubic-bezier(.55,0,.1,1);

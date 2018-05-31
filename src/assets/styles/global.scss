@@ -34,6 +34,31 @@ $mainColor: #ed5b00;
 	will-change: transform;
 }
 
+/*Swiper*/
+.swiper-container{
+	margin-bottom: 5px;
+}
+.swiper-slide{
+	width: 100%;
+	position: relative;
+	img{
+		display: block;
+		width: 100%
+	}
+}
+
+img[lazy=loading]{
+	position: absolute;
+	background-color:#f1f4f3;
+}
+img[lazy=loading].big-img{
+	width: 42px;
+	height: 42px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
 /*左右滑动切换动画*/
 .slide-left-enter-active,.slide-left-leave-active,.slide-right-enter-active,.slide-right-leave-active{
 	transition:transform .4s cubic-bezier(.55,0,.1,1);
@@ -82,4 +107,15 @@ $mainColor: #ed5b00;
 }
 .app-view-with-header{
 	padding-top: 50px;
+}
+
+.cells{
+	display: flex;
+	a{
+		position: relative;
+		width: 20%;
+		img{
+			width: 100%;
+		}
+	}
 }

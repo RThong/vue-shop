@@ -36,15 +36,15 @@ Swiper.prototype.build = function(){
     this.paginationWrapper.appendChild(pagination)
   }
 
-  const lastNode = this.wrapper.lastElementChild.cloneNode(true)
-  const firstNode = this.wrapper.firstElementChild.cloneNode(true)
+  // const lastNode = this.wrapper.lastElementChild.cloneNode(true)
+  // const firstNode = this.wrapper.firstElementChild.cloneNode(true)
 
   this.container.style.width = `${this.width}px`
 
-  this.wrapper.insertBefore(lastNode, this.wrapper.firstElementChild)
-  this.wrapper.appendChild(firstNode)
+  // this.wrapper.insertBefore(lastNode, this.wrapper.firstElementChild)
+  // this.wrapper.appendChild(firstNode)
 
-  this.wrapper.style.transform = `translate3d(${-this.width}px,0,0)`
+  this.wrapper.style.transform = `translate3d(0,0,0)`
 }
 
 Swiper.prototype.bindEvent = function(){
@@ -53,7 +53,7 @@ Swiper.prototype.bindEvent = function(){
     // e.preventDefault()
     this.downTime = Date.now()
     this.wrapper.style.transitionDuration = ``
-    this.translateX = this.translateX !== undefined ? this.translateX : -this.width
+    this.translateX = this.translateX !== undefined ? this.translateX : 0
 
 
     this.hasMouseEnd = false
@@ -105,6 +105,12 @@ Swiper.prototype.bindEvent = function(){
           this.translateX -= pageCount*this.width
         }
       }
+      if(this.translateX>0){
+        this.translateX = 0
+      }
+      else if(this.translateX<-(this.count-1)*this.width){
+        this.translateX = -(this.count-1)*this.width
+      }
       
       this.wrapper.style.transitionDuration = `300ms`
       this.wrapper.style.transform = `translate3d(${this.translateX}px,0,0)`
@@ -113,15 +119,7 @@ Swiper.prototype.bindEvent = function(){
     }
 
     Swiper.prototype.paginationChange = function(){
-      if(Math.abs(this.translateX)/this.width === 0){
-        this.index = this.count - 1
-      }
-      else if(Math.abs(this.translateX)/this.width === this.count + 1){
-        this.index = 0
-      }
-      else{
-        this.index = Math.abs(this.translateX)/this.width - 1
-      }
+      this.index = Math.abs(this.translateX)/this.width
 
       this.paginationWrapper.querySelector('.swiper-pagination-switch-active').classList.remove('swiper-pagination-switch-active')
       Array.from(this.paginationWrapper.querySelectorAll('.swiper-pagination-switch')).map((item,index) => {
@@ -135,16 +133,16 @@ Swiper.prototype.bindEvent = function(){
     Swiper.prototype.handleMove = function(e){
       // e.returnValue = true
       //边界判断
-      if(this.translateX === 0){
-        if(e.touches[0].screenX - this.originPosition > 0){
-          this.translateX = -this.slideCount*this.width
-        }
-      }
-      else if(this.translateX === -(this.slideCount+1)*this.width){
-        if(e.touches[0].screenX - this.originPosition < 0){
-          this.translateX = -this.width
-        }
-      }
+      // if(this.translateX === 0){
+      //   if(e.touches[0].screenX - this.originPosition > 0){
+      //     this.translateX = -this.slideCount*this.width
+      //   }
+      // }
+      // else if(this.translateX === -(this.slideCount+1)*this.width){
+      //   if(e.touches[0].screenX - this.originPosition < 0){
+      //     this.translateX = -this.width
+      //   }
+      // }
       this.wrapper.style.transform = `translate3d(${this.translateX + e.touches[0].screenX - this.originPosition}px,0,0)`
     }
 
