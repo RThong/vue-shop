@@ -2,36 +2,55 @@
 	<div>
 		<div class="page-list">
 			<div class="swiper-container swiper-container-recommend">
-				<div class="swiper-wrapper" v-lazy-container="{ selector: 'img', loading: 'src/assets/images/loading.svg'}">
+				<div class="swiper-wrapper" v-lazy-container="{ selector: 'img'}">
 					<router-link v-for="(item,index) in swiperUrl" tag="div" to="cart" class="swiper-slide" :key="index">
-						<img :data-src="item" class="big-img" alt="">
+						<img :data-src="item" class="big-img" alt="" data-loading="src/assets/images/loading.svg">
 					</router-link>
 				</div>
 				<div class="swiper-pagination">
 				</div>
 			</div>
+			<div class="divider-line"></div>
 			<div class="cells">
 				<router-link v-for="(item,index) in cellUrl" to="/" :key="index">
 					<img v-lazy="item" alt="">
 				</router-link>
 			</div>
-			<div class="img-fill">
-				<router-link to="">
-					<img style="width: 186.5px;" v-lazy="'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/13dd4f254d226ffde6b5e888c5bea508.jpg?thumb=1&w=358&h=508'" alt="">
-				</router-link>
-				<router-link to="">
-					<img style="width: 186.5px;left: 188.54px;top: 0;" v-lazy="'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9fe4b70a8775dd0c3f1598900e07323f.jpg?thumb=1&w=358&h=252'" alt="">
-				</router-link>
-				<router-link to="">
-					<img style="width: 186.5px;left: 188.54px;top: 133.33px;" v-lazy="'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/8cea203a2644bd5cf2d1eecd73a3cf12.jpg?thumb=1&w=358&h=252'" alt="">
-				</router-link>
+			<div class="ad-title">
+				<img v-lazy="'https://i8.mifile.cn/v1/a1/94f27f95-5aef-0d25-e9ca-b9c6777dd9c8!720x80.webp'" alt="">
 			</div>
+			
+			<list-one src="https://i8.mifile.cn/v1/a1/21647f78-b335-55c1-2a1d-83c273624436!720x360.webp" tag="https://i8.mifile.cn/v1/a1/289039eb-c3ed-7c26-69c3-5b07b72a797d.webp?w=120&h=48">
+				<span slot="l1-name">15.6"笔记本Pro i5 8GB</span>
+				<span slot="l1-price">¥4999</span>
+				<span slot="l2-name">更强悍的专业笔记本，全金属强化机身</span>
+				<span slot="l2-price">¥5599</span>
+			</list-one>
+			<list-two v-for="item in 6" :key="item" src1="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9fbc4df86c8377ff7411c9942c003fff.jpg?thumb=1&w=360&h=360" src2="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9fbc4df86c8377ff7411c9942c003fff.jpg?thumb=1&w=360&h=360" tag1="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/0c55f13eefcb247d5a706ae91cff24c2.png?w=180&h=48" tag2="https://i8.mifile.cn/v1/a1/289039eb-c3ed-7c26-69c3-5b07b72a797d.webp?w=120&h=48">
+				<span slot="l-name">小米净水器（厨下式）</span>
+				<span slot="l-intro">400加仑大流量，隐藏安装</span>
+				<span slot="l-price">¥1799</span>
+				<span slot="l-price-old">¥1999</span>
+				<span slot="r-name">小米净水器（厨下式）</span>
+				<span slot="r-intro">400加仑大流量，隐藏安装</span>
+				<span slot="r-price">¥1799</span>
+			</list-two>
+			<list-two src1="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a114635f9596f33b74632bb1ac3c12ac.jpg?thumb=1&w=360&h=360" src2="https://i8.mifile.cn/v1/a1/28bf863f-1c2d-52b8-a2e5-186dfcbaad1e!360x360.webp" tag1="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/0c55f13eefcb247d5a706ae91cff24c2.png?w=180&h=48" tag2="https://i8.mifile.cn/v1/a1/289039eb-c3ed-7c26-69c3-5b07b72a797d.webp?w=120&h=48">
+				<span slot="l-name">小米净水器（厨下式）</span>
+				<span slot="l-intro">400加仑大流量，隐藏安装</span>
+				<span slot="l-price">¥1799</span>
+				<span slot="l-price-old">¥1999</span>
+				<span slot="r-name">小米净水器（厨下式）</span>
+				<span slot="r-intro">400加仑大流量，隐藏安装</span>
+				<span slot="r-price">¥1799</span>
+			</list-two>
 		</div>		
 	</div>
 </template>
 <script>
-	// import '../../assets/styles/Swiper.scss'
 	import Swiper from '../../assets/js/Swiper'
+	import ListOne from '../list-one/list-one.vue'
+	import ListTwo from '../list-two/list-two.vue'
 	export default {
 		name: 'recommend',
 		data() {
@@ -49,7 +68,11 @@
 				]
 			}
 		},
-		mounted(){
+		components: {
+			ListOne,
+			ListTwo
+		},
+		mounted() {
 			const swiper = new Swiper('.swiper-container-recommend', {})
 		},
 		methods: {
@@ -59,21 +82,5 @@
 </script>
 <style lang="scss" scoped>
 	.page-list{
-	}
-	.img-fill{
-		position: relative;
-		width: 375px;
-		height: 264px;
-		a{
-			display: block;
-			width: 186.45px;
-			position: absolute;
-			height: auto!important;
-			img{
-				display: block;
-				width: 186.45px;
-				height: 264px;
-			}
-		}
 	}
 </style>

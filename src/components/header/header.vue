@@ -13,7 +13,7 @@
 				<slot></slot>
 			</div>
 		</div>
-		<div class="header-right">
+		<div class="header-right" @click="goSearch">
 			<div class="header-item">
 				<i class="image-icons icon-search"></i>
 			</div>
@@ -34,6 +34,9 @@
 		methods: {
 			goBack(){
 				this.$router.go(-1)
+			},
+			goSearch(){
+				this.$router.push('search')
 			}
 		}
 	}

@@ -24,6 +24,7 @@ input{
 
 $bgColor: #f2f2f2;
 $mainColor: #ed5b00;
+$bottomColor: #f5f5f5;
 
 .app-view{
 	width: 100%;
@@ -36,17 +37,23 @@ $mainColor: #ed5b00;
 
 /*Swiper*/
 .swiper-container{
+	height: 188px;
 	margin-bottom: 5px;
 }
 .swiper-slide{
 	width: 100%;
 	position: relative;
+	height: 188px;
 	img{
 		display: block;
-		width: 100%
+		width: 100%;
 	}
 }
 
+img{
+	display: block;
+	width: 100%;
+}
 img[lazy=loading]{
 	position: absolute;
 	background-color:#f1f4f3;
@@ -110,6 +117,7 @@ img[lazy=loading].big-img{
 }
 
 .cells{
+	height: 79px;
 	display: flex;
 	a{
 		position: relative;
@@ -117,5 +125,18 @@ img[lazy=loading].big-img{
 		img{
 			width: 100%;
 		}
+	}
+}
+
+
+.divider-line{
+	height: 8px;
+	background: $bottomColor;
+}
+.ad-title{
+	height: 42px;
+	img{
+		display: block;
+		width: 100%;
 	}
 }
