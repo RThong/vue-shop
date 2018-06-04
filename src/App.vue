@@ -7,7 +7,9 @@
 		<!-- 用于/search / 进行路由渲染 -->
 		<div class="app-view-wrapper">
 			<transition :name="transitionName">
-				<router-view></router-view>	
+				<keep-alive>
+					<router-view></router-view>
+				</keep-alive>
 			</transition>
 			<transition name="slide-down">
 				<router-view name="footer"></router-view>
@@ -22,6 +24,7 @@
 			}
 		},
 		mounted() {
+			// console.log('app')
 		},
 		components: {
 			Header: () => import('./components/header/header.vue')

@@ -28,7 +28,9 @@
 		</header>
 		<div class="page-wrapper">
 			<transition :name="transitionName">
-				<component :is="tabList[curTabIndex].component" class="bodys"></component>
+				<keep-alive>
+					<component :is="tabList[curTabIndex].component" class="bodys" ref="target"></component>
+				</keep-alive>
 			</transition>
 
 		</div>
@@ -39,6 +41,7 @@
 	export default {
 		data() {
 			return {
+				scrollTop: 0,
 				transitionName: '',
 				lastTabIndex: '',
 				curTabIndex: 0,
@@ -89,6 +92,13 @@
 		},
 		mounted() {
 			this.$store.commit('setHeaderIsShow', false)
+		},
+		activated() {
+			//保存滚动
+			this.$refs.target.$el.scrollTop = this.scrollTop 
+		},
+		deactivated() {
+			this.scrollTop = this.$refs.target.$el.scrollTop
 		},
 		computed: {
 		},

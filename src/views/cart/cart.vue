@@ -1,11 +1,6 @@
 <template>
-	<div class="app-view app-view-with-footer app-view-with-header">
-		<div class="cart-wrapper">
-			<div class="cart-container">
-				购物车页面
-			</div>
-			
-		</div>
+	<div class="app-view app-view-with-footer app-view-with-header cart-wrapper">
+		gouwuche
 		
 	</div>
 </template>
@@ -34,7 +29,7 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.cart-wrapper{
+/*	.cart-wrapper{
 		position: absolute;
 		left: 0;
 		right: 0;
@@ -44,5 +39,5 @@
 		.cart-container{
 			height: 7000px;
 		}
-	}
+	}*/
 </style>
