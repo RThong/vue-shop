@@ -29,7 +29,7 @@
 		<div class="page-wrapper">
 			<transition :name="transitionName">
 				<keep-alive>
-					<component :is="tabList[curTabIndex].component" class="bodys" ref="target"></component>
+					<component :is="tabList[curTabIndex].component" class="bodys" ref="scrollTarget"></component>
 				</keep-alive>
 			</transition>
 
@@ -95,10 +95,10 @@
 		},
 		activated() {
 			//保存滚动
-			this.$refs.target.$el.scrollTop = this.scrollTop 
+			this.$refs.scrollTarget.$el.scrollTop = this.scrollTop 
 		},
 		deactivated() {
-			this.scrollTop = this.$refs.target.$el.scrollTop
+			this.scrollTop = this.$refs.scrollTarget.$el.scrollTop
 		},
 		computed: {
 		},

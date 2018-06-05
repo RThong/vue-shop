@@ -4,10 +4,11 @@ export default [
 		name: 'index',
 		components: {
 			default: () => import('../views/index/index.vue'),
-			footer: () => import('../components/footer/footer.vue')
+			footer: () => import('../components/footer/footer.vue'),
 		},
 		meta: {
-			navIndex: 0
+			navIndex: 0,
+			keepAlive: true
 		}
 	},
 	{
@@ -18,7 +19,8 @@ export default [
 			footer: () => import('../components/footer/footer.vue')
 		},
 		meta: {
-			navIndex: 1
+			navIndex: 1,
+			keepAlive: true
 		}
 	},
 	{

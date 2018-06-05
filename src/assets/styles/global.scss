@@ -152,3 +152,37 @@ img[lazy=loaded]{
 		width: 100%;
 	}
 }
+
+.arrow{
+	&:after{
+		content: "";
+		position: absolute;
+		right: -12px;
+		top: 50%;
+		width: 7px;
+		height: 7px;
+		border-left: 1px solid #aaa;
+		border-top: 1px solid #aaa;
+		transform: translate3d(0,-50%,0) rotate(135deg);
+		-webkit-transform: translate3d(0,-50%,0) rotate(135deg);
+	}
+}
+
+.icon-vip{
+	background-image: url(/src/assets/images/vip.png);
+}
+.icon-service{
+	background-image: url(/src/assets/images/service.png);
+}
+.icon-wallet{
+	background-image: url(/src/assets/images/wallet.png);
+}
+.icon-fcode{
+	background-image: url(/src/assets/images/fcode.png);
+}
+.icon-mihong{
+	background-image: url(/src/assets/images/mihong.png);
+}
+.icon-setting{
+	background-image: url(/src/assets/images/setting.png);
+}

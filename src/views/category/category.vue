@@ -7,7 +7,7 @@
 				</li>			
 			</ul>
 		</div>
-		<div class="list-wrap">
+		<div class="list-wrap" ref="scrollTarget">
 			<category-list :id="item.id" v-for="(item,index) in navList" :banner="item.banner" :productList="item.category" :key="index">
 			</category-list>
 		</div>
@@ -18,6 +18,7 @@
 	export default {
 		data(){
 			return {
+				scrollTop: 0,
 				active: 0,
 				navList: [
 					{
@@ -1056,13 +1057,17 @@
 			this.$store.commit('setHeaderText', '分类')
 			if(!this.$store.state.headerIsShow){
 				this.$store.commit('setHeaderIsShow', true)
-			}			
+			}
 		},
 		activated() {
 			this.$store.commit('setHeaderText', '分类')
 			if(!this.$store.state.headerIsShow){
 				this.$store.commit('setHeaderIsShow', true)
-			}	
+			}
+			this.$refs.scrollTarget.scrollTop = this.scrollTop 	
+		},
+		deactivated() {
+			this.scrollTop = this.$refs.scrollTarget.scrollTop
 		},
 		methods: {
 		},

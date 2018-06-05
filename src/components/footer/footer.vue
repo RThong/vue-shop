@@ -26,6 +26,10 @@
 				</router-link>
 			</li>
 		</ul>
+		<img src="../../assets/images/icon-index-active.png" style="display: none" alt="">
+		<img src="../../assets/images/icon-category-active.png" style="display: none" alt="">
+		<img src="../../assets/images/icon-cart-active.png" style="display: none" alt="">
+		<img src="../../assets/images/icon-user-active.png" style="display: none" alt="">
 	</footer>
 </template>
 <script>
@@ -58,6 +62,7 @@
 </script>
 <style lang="scss" scoped>
 footer{
+	background: #fff;
 	position: fixed;
 	bottom: 0;
 	left: 0;
