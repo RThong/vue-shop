@@ -1,13 +1,13 @@
 <template>
 	<div class="app-view app-view-with-footer user-wrapper">
-		<header class="hd">
+		<router-link class="hd" to="login">
 			<div class="user-img">
 				<img src="https://s1.mi.com/m/images/m/default.png" alt="">
 			</div>
 			<div class="user-info">
-				<p>admin</p>
+				<p>登录</p>
 			</div>
-		</header>
+		</router-link>
 		<div class="order">
 			<span class="l">我的订单</span>
 			<router-link to="" class="r arrow">全部订单</router-link>
@@ -38,6 +38,7 @@
 </template>
 <script>
 	import UiLine from '../../components/line/line.vue'
+	// import db from '../../../app.config'
 	export default {
 		data(){
 			return {
@@ -75,6 +76,10 @@
 		mounted() {
 		},
 		methods: {
+			// login() {
+			// 	const data = db().login('hong', '123456')
+			// 	console.log(data)
+			// }
 		},
 	}
 </script>
