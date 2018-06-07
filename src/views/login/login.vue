@@ -30,14 +30,17 @@
 			}
 		},
 		methods: {
-			async login() {
-				const res = await db().login(this.username, this.password)
-				console.log(res)
-				if(res.data){
-					const user = await db().findUser(res.data.userId)
-					console.log(user)
-				}
+			// async login() {
+			// 	const res = await db().login(this.username, this.password)
+			// 	console.log(res)
+			// 	if(res.data){
+			// 		const user = await db().findUser(res.data.userId, res.data.id)
+			// 		console.log(user)
+			// 	}
 
+			// }
+			login() {
+				console.log(db().login(this.username, this.password))
 			}
 		}
 	}
