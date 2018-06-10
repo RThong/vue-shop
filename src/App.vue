@@ -7,7 +7,7 @@
 		<!-- 用于/search / 进行路由渲染 -->
 		<div class="app-view-wrapper">
 			<transition :name="transitionName">
-				<keep-alive>
+				<keep-alive exclude="login">
 					<router-view></router-view>
 				</keep-alive>
 			</transition>

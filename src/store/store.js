@@ -10,7 +10,7 @@ export default () => {
 			headerIsShow: false,
 			pullPageSlide: '',
 			headerText: '',
-
+			user: undefined
 		},
 		mutations: {
 			setNavIndex(state, index) {
@@ -35,6 +35,9 @@ export default () => {
 			},
 			setHeaderText(state, text) {
 				state.headerText = text
+			},
+			setUser(state, user){
+				state.user = user
 			}
 		}
 	})

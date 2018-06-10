@@ -12,7 +12,7 @@
 					<span class="price-old"><del><slot name="l-price-old"></slot></del></span>
 				</div>
 			</div>
-			<div class="tag">
+			<div v-if="tag1" class="tag">
 				<img :src="tag1" alt="">
 			</div>
 		</router-link>
@@ -28,7 +28,7 @@
 					<span class="price-old"><del><slot name="r-price-old"></slot></del></span>
 				</div>
 			</div>
-			<div class="tag">
+			<div v-if="tag2" class="tag">
 				<img :src="tag2" alt="">
 			</div>
 		</router-link>

@@ -16,31 +16,50 @@
 
 			<div class="login-btn" @click="login">登录</div>
 
-			<div class="register-btn">注册</div>
+			<div class="register-btn" @click="logout">注册</div>
 		</div>
 	</div>
 </template>
 <script>
 	import db from '../../../app.config'
+	import bus from '../../util/bus'
+
 	export default {
+		name: 'login',
 		data() {
 			return {
 				username: '',
-				password: ''
+				password: '',
+				id: undefined
 			}
 		},
+		mounted() {		
+		},
 		methods: {
-			// async login() {
-			// 	const res = await db().login(this.username, this.password)
-			// 	console.log(res)
-			// 	if(res.data){
-			// 		const user = await db().findUser(res.data.userId, res.data.id)
-			// 		console.log(user)
-			// 	}
-
-			// }
-			login() {
-				console.log(db().login(this.username, this.password))
+			async login() {
+				try{
+					const user = await db().login(this.username, this.password)
+					const res = await db().findUser(user.userId, user.id)
+					this.id = user.id
+					if(res){
+						sessionStorage.setItem('user', JSON.stringify(res))
+						this.$store.commit('setUser', res)
+						this.$toast('登录成功', {
+							type: 'success',
+						})
+						bus.$on('toastClosed', () => {
+							this.$router.push('/')
+						})
+					}
+				}catch(err){					
+					this.$toast('登录失败', {
+						type: 'fail'
+					})
+				}
+			},
+			async logout() {
+				const res = await db().logout(this.id)
+				console.log(res)
 			}
 		}
 	}

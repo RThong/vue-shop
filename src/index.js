@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import Vuex from 'vuex'
 import App from './App.vue'
 import VueLazyload from 'vue-lazyload'
+import Toast from './components/toast'
 
+Vue.use(Toast)
 
 Vue.use(VueLazyload, {
   // preLoad: 1,
@@ -23,6 +25,11 @@ Vue.use(Vuex)
 const router = createRouter()
 const store = createStore()
 
+router.beforeEach((to, from, next) => {
+  // console.log(session)
+  // console.log()
+  next()
+})
 new Vue({
 	el: '#root',
 	router,

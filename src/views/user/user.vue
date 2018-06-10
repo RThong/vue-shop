@@ -1,6 +1,14 @@
 <template>
 	<div class="app-view app-view-with-footer user-wrapper">
-		<router-link class="hd" to="login">
+		<div v-if="username!==undefined" class="hd">
+			<div class="user-img">
+				<img src="https://s1.mi.com/m/images/m/default.png" alt="">
+			</div>
+			<div class="user-info">
+				<p>{{username}}</p>
+			</div>
+		</div>
+		<router-link v-else class="hd" to="login">
 			<div class="user-img">
 				<img src="https://s1.mi.com/m/images/m/default.png" alt="">
 			</div>
@@ -67,13 +75,21 @@
 						title: '设置',
 						class: 'icon-setting',
 					},
-				]
+				]			
 			}
 		},
 		components: {
 			UiLine
 		},
-		mounted() {
+		mounted() {		
+			if(sessionStorage['user']){
+				this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+			}	
+		},
+		computed: {
+			username() {
+				return this.$store.state.user === undefined? undefined : this.$store.state.user.username
+			}
 		},
 		methods: {
 			// login() {

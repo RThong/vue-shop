@@ -50,7 +50,7 @@ Swiper.prototype.build = function(){
 Swiper.prototype.bindEvent = function(){
   const callback = this.handleMove.bind(this)
   this.container.addEventListener('touchstart', (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     this.downTime = Date.now()
     this.wrapper.style.transitionDuration = ``
     this.translateX = this.translateX !== undefined ? this.translateX : 0
@@ -62,7 +62,7 @@ Swiper.prototype.bindEvent = function(){
 
     window.addEventListener('touchmove', callback)
     window.addEventListener('touchend', (e) => {
-      // e.preventDefault()
+      e.preventDefault()
       if(this.hasMouseEnd){
         return
       }
