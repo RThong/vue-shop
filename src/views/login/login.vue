@@ -41,8 +41,9 @@
 					const res = await db().findUser(user.userId, user.id)
 					this.id = user.id
 					if(res){
-						sessionStorage.setItem('user', JSON.stringify(res))
-						this.$store.commit('setUser', res)
+						sessionStorage.setItem('userId', user.userId)
+						sessionStorage.setItem('id', user.id)
+						sessionStorage.setItem('username', res.username)
 						this.$toast('登录成功', {
 							type: 'success',
 							callback: () => {

@@ -19,13 +19,13 @@ const handleRequest = ({ status, data, ...rest }) => {
 }
 
 // export default () => {
-// 	const getHeaders = () =>{
-// 		const now = Date.now()
-// 		return {
-// 			'X-APICloud-AppId': appId,
-// 			'X-APICloud-AppKey': `${sha1(`${appId}UZ${appKey}UZ${now}`)}.${now}`			
-// 		}
-// 	}
+	const getHeaders = () =>{
+		const now = Date.now()
+		return {
+			'X-APICloud-AppId': appId,
+			'X-APICloud-AppKey': `${sha1(`${appId}UZ${appKey}UZ${now}`)}.${now}`			
+		}
+	}
 // 	return {
 // 		async login(username, password) {
 // 			return handleRequest(await axios.post('https://d.apicloud.com/mcm/api/user/login',
@@ -37,15 +37,20 @@ const handleRequest = ({ status, data, ...rest }) => {
 // 											headers: getHeaders()
 // 										}))
 // 		},
-// 		async findUser(userId, authorizationId) {
-// 			return handleRequest(await axios.get(`https://d.apicloud.com/mcm/api/user/${userId}`,
-// 							{
-// 								headers: {
-// 									...getHeaders(),
-// 									authorization: authorizationId
-// 								}
-// 							}))
-// 		},
+
+		//修改carList
+		// axios.post(`https://d.apicloud.com/mcm/api/user/5b1e984990f9f67a094dd194`,
+		// {
+		// 	'cartList': [{"productId":"5b1de5bd9511516765195b4c","name":"小米6X 6GB+128GB","price":"1999","img":"/static/cf8df89713342d51d01bff5ed1bced57.jpg","num":2,"checked":1}],
+		// 	_method: 'PUT'
+		// },
+		// 					{
+		// 						headers: {
+		// 							...getHeaders(),
+		// 							authorization: 'KM9oqNMfi1VJFrPiXNxgC98UlheKMpj9f9lhhVi3O5leJyxIflIhToeZw95ZmMuD'
+		// 						}
+		// 					}).then(res=>console.log(res))
+
 // 		async logout(authorizationId) {
 // 			return handleRequest(await axios.post(`https://d.apicloud.com/mcm/api/user/logout`,
 // 							{
@@ -62,42 +67,47 @@ const handleRequest = ({ status, data, ...rest }) => {
 // }
 
 
-	const getHeaders = () =>{
-		const now = Date.now()
-		return {
-			'X-APICloud-AppId': appId,
-			'X-APICloud-AppKey': `${sha1(`${appId}UZ${appKey}UZ${now}`)}.${now}`			
-		}
-	}
-
-	// axios.post('https://d.apicloud.com/mcm/api/user/5b1e2633184c022a6a87a217',
-	// {
-	// 	$push: {
-	// 		cartList: {
-	// 			productId: '5b1de5bd9511516765195b4c',
-	// 			name: '小米6X 6GB+128GB',
-	// 			price: '1999',
-	// 			img: '/static/cf8df89713342d51d01bff5ed1bced57.jpg',
-	// 			num: 2
-	// 		}
-	// 	},
-	// 	_method:'PUT'
-	// },
-	// {
-	// 	headers: {
-	// 		...getHeaders(),
-	// 		authorization: 'E4SHaTDDdoAnHF8l29ODAfah1e4Z9tnR5crIBCVAREduyB1763JRMclLAlf2PpP1'
+	// const getHeaders = () =>{
+	// 	const now = Date.now()
+	// 	return {
+	// 		'X-APICloud-AppId': appId,
+	// 		'X-APICloud-AppKey': `${sha1(`${appId}UZ${appKey}UZ${now}`)}.${now}`			
 	// 	}
-	// })
+	// }
 
-	//修改cartList的num
-	axios.get(`https://d.apicloud.com/mcm/api/user/5b1e2633184c022a6a87a217`,
+	//添加cartList
+	axios.post('https://d.apicloud.com/mcm/api/user/5b1e9bdd372592df27c30dba',
+	{
+		$push: {
+			cartList: {
+				productId: '5b1de5bd9511516765195b4c',
+				name: '小米6X 6GB+128GB',
+				price: '1999',
+				img: '/static/cf8df89713342d51d01bff5ed1bced57.jpg',
+				num: 2,
+				checked: 1
+			}
+		},
+		_method:'PUT'
+	},
 	{
 		headers: {
 			...getHeaders(),
-			authorization: 'E4SHaTDDdoAnHF8l29ODAfah1e4Z9tnR5crIBCVAREduyB1763JRMclLAlf2PpP1'
+			authorization: 'Gq19PpOJYtjkucVGBI2tAt15IFpeOkH4khir86YHhhXzIIC8qRgzyYXp2DEXgF5Q'
 		}
-	}).then(res=>console.log(res.data.cartList))
+	})
+
+	//注册
+	// axios.post(`https://d.apicloud.com/mcm/api/user`,
+	// {
+	// 	username: 'admin',
+	// 	password: '123456'
+	// },
+	// {
+	// 	headers: {
+	// 		...getHeaders()
+	// 	}
+	// })
 
 		// async login(username, password) {
 		// 	return handleRequest(await axios.post('https://d.apicloud.com/mcm/api/user/login',

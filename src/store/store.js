@@ -12,6 +12,17 @@ export default () => {
 			headerText: '',
 			user: undefined
 		},
+		// getters: {
+		// 	cartList(state){
+		// 		console.log('getters')
+		// 		if(state.user === undefined){
+		// 			return []
+		// 		}
+		// 		else{
+		// 			return state.user.cartList
+		// 		}				
+		// 	}
+		// },
 		mutations: {
 			setNavIndex(state, index) {
 				if(index > state.curNavIndex){

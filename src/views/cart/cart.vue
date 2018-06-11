@@ -37,14 +37,6 @@
 		data(){
 			return {
 				cartList: [],
-				// cartList: [
-					// {
-					// 	name: '小米6X 全网通版 4GB内存 64GB 冰川蓝',
-					// 	price: 1599,
-					// 	img: 'https://i1.mifile.cn/a1/pms_1524621078.90015819!180x1800.jpg',
-					// 	num: 2
-					// }
-				// ],
 				productList: [],
 			}
 		},
@@ -53,16 +45,18 @@
 			Card
 		},
 		mounted() {
-			// if(sessionStorage['user']){
-			// 	this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
-			// }
+
+			this.getProductData()
+			this.getCartList().then(res => {
+				this.cartList = res.cartList
+			})
 
 			console.log(this.$store.state.headerIsShow)
 			this.$store.commit('setHeaderText', '购物车')
 			if(!this.$store.state.headerIsShow){
 				this.$store.commit('setHeaderIsShow', true)
 			}
-			this.getProductData()
+			
 		},
 		activated() {
 			this.$store.commit('setHeaderText', '购物车')
@@ -73,26 +67,52 @@
 		computed: {
 			user() {
 				if(this.$store.state.user !== undefined){
-					this.cartList = this.$store.state.user.cartList
+					// this.cartList = this.$store.state.user.cartList
 					return this.$store.state.user
 				}
 				else{
 					return undefined
 				}
-			}
+			},
+			// cartList() {
+			// 	return this.$store.getters.cartList
+			// }
 		},
 		methods: {
 			inputSub(item) {
 				if(item.num >1){
-					// item.num--
+					item.num--
+					this.getCartList().then(res => {
+					res.cartList.map(cart => {
+						if(item.productId === cart.productId)
+							cart.num--
+					})
+					this.updateCartList(res.cartList)
+				})
 				}
 			},
 			inputAdd(item) {
 				item.num++
-				// console.log(item)
+				this.getCartList().then(res => {
+					res.cartList.map(cart => {
+						if(item.productId === cart.productId)
+							cart.num++
+					})
+					this.updateCartList(res.cartList)
+				})
 			},
 			async getProductData() {
 				this.productList = await db().getProduct()
+			},
+			async getCartList() {
+				try{
+					return db().findUser(sessionStorage.getItem('userId'), sessionStorage.getItem('id'))				
+				}catch(err){
+					console.log(err)
+				}		
+			},
+			async updateCartList(value) {
+				await db().updateUser(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			}
 		},
 		beforeRouteLeave(to, from, next) {

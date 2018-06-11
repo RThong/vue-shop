@@ -4,6 +4,8 @@ const sha1 = require('sha1')
 const appId = 'A6073734459826'
 const	appKey = 'E19391E2-EC85-DE75-6369-51E455E791E0'
 
+const baseURL = 'https://d.apicloud.com/mcm/api'
+
 const createError = (code, resp) => {
   const err = new Error(resp.message)
   err.code = code
@@ -28,7 +30,7 @@ export default () => {
 	}
 	return {
 		async login(username, password) {
-			return handleRequest(await axios.post('https://d.apicloud.com/mcm/api/user/login',
+			return handleRequest(await axios.post(`${baseURL}/user/login`,
 										{
 											username,
 											password
@@ -38,7 +40,7 @@ export default () => {
 										}))
 		},
 		async findUser(userId, authorizationId) {
-			return handleRequest(await axios.get(`https://d.apicloud.com/mcm/api/user/${userId}`,
+			return handleRequest(await axios.get(`${baseURL}/user/${userId}`,
 							{
 								headers: {
 									...getHeaders(),
@@ -47,7 +49,7 @@ export default () => {
 							}))
 		},
 		async logout(authorizationId) {
-			return handleRequest(await axios.post(`https://d.apicloud.com/mcm/api/user/logout`,
+			return handleRequest(await axios.post(`${baseURL}/user/logout`,
 							{
 								token: authorizationId
 							},
@@ -59,10 +61,23 @@ export default () => {
 							}))
 		},
 		async getProduct() {
-			return handleRequest(await axios.get('https://d.apicloud.com/mcm/api/product',
+			return handleRequest(await axios.get(`${baseURL}/product`,
 			{
 				headers: getHeaders()
 			}))
+		},
+		async updateUser(value, userId, authorizationId) {
+			return handleRequest(await axios.post(`${baseURL}/user/${userId}`,
+				{
+					cartList: value,
+					_method: 'PUT'
+				},
+				{
+					headers: {
+						...getHeaders(),
+						authorization: authorizationId
+					}
+				}))
 		}
 	}
 }
