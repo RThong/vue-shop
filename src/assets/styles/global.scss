@@ -142,6 +142,13 @@ img[lazy=loaded]{
 }
 
 
+.card-list{
+	display: flex;
+	flex-wrap: wrap;
+	background: #fff;
+	justify-content: space-between;
+}
+
 .divider-line{
 	height: 8px;
 	background: $bottomColor;

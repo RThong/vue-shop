@@ -57,6 +57,12 @@ export default () => {
 									authorization: authorizationId
 								}
 							}))
+		},
+		async getProduct() {
+			return handleRequest(await axios.get('https://d.apicloud.com/mcm/api/product',
+			{
+				headers: getHeaders()
+			}))
 		}
 	}
 }

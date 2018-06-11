@@ -47,7 +47,9 @@
 <script>
 	import UiLine from '../../components/line/line.vue'
 	// import db from '../../../app.config'
+	import userMixin from '../../mixin/userMixin'
 	export default {
+		mixins: [userMixin],
 		data(){
 			return {
 				lineList: [
@@ -82,9 +84,9 @@
 			UiLine
 		},
 		mounted() {		
-			if(sessionStorage['user']){
-				this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
-			}	
+			// if(sessionStorage['user']){
+			// 	this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+			// }	
 		},
 		computed: {
 			username() {

@@ -55,4 +55,7 @@ export default [
 		name: 'login',
 		component: () => import('../views/login/login.vue')
 	},
+	{
+		path: 'commodity/detail/:id'
+	}
 ]

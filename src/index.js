@@ -25,11 +25,12 @@ Vue.use(Vuex)
 const router = createRouter()
 const store = createStore()
 
-router.beforeEach((to, from, next) => {
-  // console.log(session)
-  // console.log()
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   console.log(sessionStorage.getItem('user'))
+//   next(vm => {
+//     console.log(vm)
+//   })
+// })
 new Vue({
 	el: '#root',
 	router,

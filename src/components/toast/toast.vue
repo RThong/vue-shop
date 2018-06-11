@@ -17,7 +17,7 @@
 	import './iconfont'
 	export default {
 		name: 'Toast',
-		props: ['text','type'],
+		props: ['text','type','callback'],
 		data() {
 			return {
 				visiable: true

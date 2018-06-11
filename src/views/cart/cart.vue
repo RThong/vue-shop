@@ -1,7 +1,7 @@
 <template>
 	<div class="app-view app-view-with-footer app-view-with-header cart-wrapper">
 		<div class="cart-container">
-			<div v-if="username" class="nologin">
+			<div v-if="!user" class="nologin">
 				<router-link to="login">
 					<span>登录后享受更多优惠</span>
 					<span class="login-btn arrow">去登录</span>
@@ -20,56 +20,49 @@
 				<div class="recommend-top-img">
 					<img v-lazy="'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e95ade2750a7fde92369b416c7d3176d.jpg'" alt="">
 				</div>
-				<list-two v-for="item in 6" :key="item" src1="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9fbc4df86c8377ff7411c9942c003fff.jpg?thumb=1&w=360&h=360" src2="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9fbc4df86c8377ff7411c9942c003fff.jpg?thumb=1&w=360&h=360">
-				<span slot="l-name">小米净水器（厨下式）</span>
-				<!-- <span slot="l-intro">400加仑大流量，隐藏安装</span> -->
-				<span slot="l-price">¥1799</span>
-				<span slot="l-price-old">¥1999</span>
-				<span slot="r-name">小米净水器（厨下式）</span>
-				<!-- <span slot="r-intro">400加仑大流量，隐藏安装</span> -->
-				<span slot="r-price">¥1799</span>
-				<span slot="r-price-old">¥1999</span>
-			</list-two>
-			<list-two src1="https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a114635f9596f33b74632bb1ac3c12ac.jpg?thumb=1&w=360&h=360" src2="https://i8.mifile.cn/v1/a1/28bf863f-1c2d-52b8-a2e5-186dfcbaad1e!360x360.webp">
-				<span slot="l-name">小米净水器（厨下式）</span>
-				<span slot="l-intro">400加仑大流量，隐藏安装</span>
-				<span slot="l-price">¥1799</span>
-				<span slot="l-price-old">¥1999</span>
-				<span slot="r-name">小米净水器（厨下式）</span>
-				<span slot="r-intro">400加仑大流量，隐藏安装</span>
-				<span slot="r-price">¥1799</span>
-				<span slot="r-price-old">¥1999</span>
-			</list-two>
+				<div class="card-list">
+					<card v-for="(item,index) in productList" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.img" :tag="item.tag" :key="index"></card>
+				</div>
 			</div>
 		</div>	
 	</div>
 </template>
 <script>
-	import ListTwo from '../../components/list-two/list-two.vue'
 	import cartCard from '../../components/cart-card/cart-card.vue'
+	import Card from '../../components/card/card.vue'
+	import db from '../../../app.config'
+	import userMixin from '../../mixin/userMixin'
 	export default {
+		mixins: [userMixin],
 		data(){
 			return {
-				cartList: [
+				cartList: [],
+				// cartList: [
 					// {
 					// 	name: '小米6X 全网通版 4GB内存 64GB 冰川蓝',
 					// 	price: 1599,
 					// 	img: 'https://i1.mifile.cn/a1/pms_1524621078.90015819!180x1800.jpg',
 					// 	num: 2
 					// }
-				]
+				// ],
+				productList: [],
 			}
 		},
 		components: {
-			ListTwo,
-			cartCard
+			cartCard,
+			Card
 		},
 		mounted() {
+			// if(sessionStorage['user']){
+			// 	this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+			// }
+
 			console.log(this.$store.state.headerIsShow)
 			this.$store.commit('setHeaderText', '购物车')
 			if(!this.$store.state.headerIsShow){
 				this.$store.commit('setHeaderIsShow', true)
 			}
+			this.getProductData()
 		},
 		activated() {
 			this.$store.commit('setHeaderText', '购物车')
@@ -78,18 +71,28 @@
 			}
 		},
 		computed: {
-			username() {
-				return this.$store.state.user === undefined? undefined : this.$store.state.user.username
+			user() {
+				if(this.$store.state.user !== undefined){
+					this.cartList = this.$store.state.user.cartList
+					return this.$store.state.user
+				}
+				else{
+					return undefined
+				}
 			}
 		},
 		methods: {
 			inputSub(item) {
 				if(item.num >1){
-					item.num--
+					// item.num--
 				}
 			},
 			inputAdd(item) {
 				item.num++
+				// console.log(item)
+			},
+			async getProductData() {
+				this.productList = await db().getProduct()
 			}
 		},
 		beforeRouteLeave(to, from, next) {

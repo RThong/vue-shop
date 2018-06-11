@@ -26,35 +26,23 @@
 				<span slot="l2-name">更强悍的专业笔记本，全金属强化机身</span>
 				<span slot="l2-price">¥5599</span>
 			</list-one>
-			<list-two v-for="item in 6" :key="item" src1="/static/9fbc4df86c8377ff7411c9942c003fff.jpg?thumb=1&w=360&h=360" src2="/static/9fbc4df86c8377ff7411c9942c003fff.jpg?thumb=1&w=360&h=360" tag1="/static/0c55f13eefcb247d5a706ae91cff24c2.png?w=180&h=48" tag2="/static/289039eb-c3ed-7c26-69c3-5b07b72a797d.webp?w=120&h=48">
-				<span slot="l-name">小米净水器（厨下式）</span>
-				<span slot="l-intro">400加仑大流量，隐藏安装</span>
-				<span slot="l-price">¥1799</span>
-				<span slot="l-price-old">¥1999</span>
-				<span slot="r-name">小米净水器（厨下式）</span>
-				<span slot="r-intro">400加仑大流量，隐藏安装</span>
-				<span slot="r-price">¥1799</span>
-			</list-two>
-			<list-two src1="/static/a114635f9596f33b74632bb1ac3c12ac.jpg?thumb=1&w=360&h=360" src2="/static/28bf863f-1c2d-52b8-a2e5-186dfcbaad1e!360x360.webp" tag1="/static/0c55f13eefcb247d5a706ae91cff24c2.png?w=180&h=48" tag2="/static/289039eb-c3ed-7c26-69c3-5b07b72a797d.webp?w=120&h=48">
-				<span slot="l-name">小米净水器（厨下式）</span>
-				<span slot="l-intro">400加仑大流量，隐藏安装</span>
-				<span slot="l-price">¥1799</span>
-				<span slot="l-price-old">¥1999</span>
-				<span slot="r-name">小米净水器（厨下式）</span>
-				<span slot="r-intro">400加仑大流量，隐藏安装</span>
-				<span slot="r-price">¥1799</span>
-			</list-two>
+			<div class="card-list">
+				<card v-for="(item,index) in productList" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.img" :tag="item.tag" :key="index"></card>
+			</div>
 		</div>		
 	</div>
 </template>
 <script>
 	import Swiper from '../../assets/js/Swiper'
 	import ListOne from '../list-one/list-one.vue'
-	import ListTwo from '../list-two/list-two.vue'
+	import Card from '../card/card.vue'
+	import db from '../../../app.config'
+
 	export default {
 		name: 'recommend',
 		data() {
 			return {
+				productList: [],
 				swiperUrl: ['/static/a0ff3dc30027f3b615bfe03f1d306ee5.jpg?thumb=1&w=720&h=360',
 				'/static/37dfdc929ee9a4313facb0b23ebcd721.jpg?thumb=1&w=720&h=360',
 				'/static/7bf60972f79f94a4b69a0666a57121b2.jpg?thumb=1&w=720&h=360',
@@ -70,18 +58,21 @@
 		},
 		components: {
 			ListOne,
-			ListTwo
+			Card
 		},
 		mounted() {
 			const swiper = new Swiper('.swiper-container-recommend', {})
+			this.getData()
+			
 		},
 		methods: {
-			
+			async getData() {
+				this.productList = await db().getProduct()
+			}
 		},
 
 	}
 </script>
 <style lang="scss" scoped>
-	.page-list{
-	}
+	
 </style>

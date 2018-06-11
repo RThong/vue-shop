@@ -1,6 +1,5 @@
 import toast from './toast.vue'
 import Vue from 'vue'
-import bus from '../../util/bus'
 
 
 //插件拓展需要的参数
@@ -12,7 +11,7 @@ const ToastConstructor = Vue.extend({
 		this.$on('closed', () => {
 			document.body.removeChild(this.$el)
 			this.$destroy()
-			bus.$emit('toastClosed')
+			this.callback()
 		})
 	},
 	beforeDestroy(){

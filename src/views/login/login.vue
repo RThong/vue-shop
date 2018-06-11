@@ -22,7 +22,6 @@
 </template>
 <script>
 	import db from '../../../app.config'
-	import bus from '../../util/bus'
 
 	export default {
 		name: 'login',
@@ -46,9 +45,9 @@
 						this.$store.commit('setUser', res)
 						this.$toast('登录成功', {
 							type: 'success',
-						})
-						bus.$on('toastClosed', () => {
-							this.$router.push('/')
+							callback: () => {
+								this.$router.push('/')
+							}
 						})
 					}
 				}catch(err){					
