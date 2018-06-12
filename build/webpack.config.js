@@ -12,7 +12,10 @@ const devServer = {
 	historyApiFallback: {
 		index: '/index.html'
 	},//history模式手动刷新url会发送请求，出现错误
-	hot: true
+	hot: true,
+  proxy: {
+    "/api": "http://localhost:3000"
+  }
 }
 
 const config = {

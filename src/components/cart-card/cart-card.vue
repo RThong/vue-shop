@@ -1,6 +1,6 @@
 <template>
 	<div class="item">
-		<div class="choose" :class="checked? 'checked':'unchecked'" @click="checked = !checked"></div>
+		<div class="choose" :class="checked === 1? 'checked':'unchecked'" @click="changeChecked"></div>
 		<router-link to="" class="item-img">
 			<img v-lazy="img" alt="">
 		</router-link>
@@ -20,17 +20,16 @@
 					</div>
 					<div class="image-icons input-add" :class="{'active': addActive}" @click="inputAdd"></div>
 				</div>
-				<div class="image-icons icon-delete"></div>
+				<div class="image-icons icon-delete" @click="delCartList"></div>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
 	export default {
-		props: ['name', 'img', 'price', 'num'],
+		props: ['name', 'img', 'price', 'num', 'checked'],
 		data() {
 			return {
-				checked: false,
 				subActive: true,
 				addActive: true
 			}
@@ -56,6 +55,12 @@
 			},
 			inputAdd() {
 				this.$emit('add')
+			},
+			changeChecked() {
+				this.$emit('changeChecked')
+			},
+			delCartList() {
+				this.$emit('delCartList')
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 <template>
 	<div class="app-view app-view-with-footer app-view-with-header cart-wrapper">
 		<div class="cart-container">
-			<div v-if="!user" class="nologin">
+			<div v-if="!isLogin" class="nologin">
 				<router-link to="login">
 					<span>登录后享受更多优惠</span>
 					<span class="login-btn arrow">去登录</span>
@@ -14,7 +14,7 @@
 				</router-link>
 			</div>
 			<div v-else class="items">
-				<cart-card v-for="(item,index) in cartList" :name="item.name" :price="item.price" :img="item.img" :num="item.num" @sub="inputSub(item)" @add="inputAdd(item)" :key="index"></cart-card>
+				<cart-card v-for="(item,index) in cartList" :checked="item.checked" :name="item.name" :price="item.price" :img="item.img" :num="item.num" @sub="inputSub(item)" @add="inputAdd(item)" @changeChecked="changeChecked(item)" @delCartList="delProduct(item)" :key="index"></cart-card>
 			</div>
 			<div class="recommend-contianer">
 				<div class="recommend-top-img">
@@ -24,20 +24,23 @@
 					<card v-for="(item,index) in productList" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.img" :tag="item.tag" :key="index"></card>
 				</div>
 			</div>
-		</div>	
+		</div>
+		
 	</div>
 </template>
 <script>
 	import cartCard from '../../components/cart-card/cart-card.vue'
 	import Card from '../../components/card/card.vue'
 	import db from '../../../app.config'
-	import userMixin from '../../mixin/userMixin'
+
 	export default {
-		mixins: [userMixin],
+		// mixins: [userMixin],
 		data(){
 			return {
+				isLogin: false,
 				cartList: [],
 				productList: [],
+				btnLock: false
 			}
 		},
 		components: {
@@ -45,60 +48,110 @@
 			Card
 		},
 		mounted() {
-
-			this.getProductData()
-			this.getCartList().then(res => {
-				this.cartList = res.cartList
-			})
-
-			console.log(this.$store.state.headerIsShow)
-			this.$store.commit('setHeaderText', '购物车')
-			if(!this.$store.state.headerIsShow){
-				this.$store.commit('setHeaderIsShow', true)
+			//判断登录
+			if(sessionStorage.getItem('userId')){
+				this.isLogin = true		
+				this.getCartList().then(res => {
+					this.cartList = res.cartList
+				})
 			}
-			
+			this.getProductData()
 		},
 		activated() {
+			if(this.cartList.length > 0){
+				this.$store.commit('setResultIsShow', true)
+			}
+			else{
+				this.$store.commit('setResultIsShow', false)
+			}
 			this.$store.commit('setHeaderText', '购物车')
 			if(!this.$store.state.headerIsShow){
 				this.$store.commit('setHeaderIsShow', true)
 			}
 		},
-		computed: {
-			user() {
-				if(this.$store.state.user !== undefined){
-					// this.cartList = this.$store.state.user.cartList
-					return this.$store.state.user
+		watch: {
+			cartList(val) {
+				if(val.length > 0){
+					this.$store.commit('setResultIsShow', true)
 				}
 				else{
-					return undefined
-				}
-			},
-			// cartList() {
-			// 	return this.$store.getters.cartList
-			// }
+					this.$store.commit('setResultIsShow', false)
+				}	
+			}
 		},
 		methods: {
+			//数量减小
 			inputSub(item) {
-				if(item.num >1){
-					item.num--
+				if(this.btnLock){
+					return
+				}
+				this.btnLock = true
+				if(item.num >1){					
 					this.getCartList().then(res => {
-					res.cartList.map(cart => {
-						if(item.productId === cart.productId)
-							cart.num--
+						res.cartList.map(cart => {
+							if(item.productId === cart.productId){
+								cart.num--
+								this.updateCartList(res.cartList).then(res => {
+									item.num--
+									this.btnLock = false;
+								})
+							}
+						})						
 					})
-					this.updateCartList(res.cartList)
-				})
 				}
 			},
+			//数量增加
 			inputAdd(item) {
-				item.num++
+				if(this.btnLock){
+					return
+				}
+				this.btnLock = true
 				this.getCartList().then(res => {
 					res.cartList.map(cart => {
-						if(item.productId === cart.productId)
+						if(item.productId === cart.productId){
 							cart.num++
+							this.updateCartList(res.cartList).then(res => {
+								item.num++
+								this.btnLock = false;
+							})
+						}
 					})
-					this.updateCartList(res.cartList)
+				})
+			},
+			//选中购物车
+			changeChecked(item) {
+				if(this.btnLock){
+					return
+				}
+				this.btnLock = true			
+				this.getCartList().then(res => {
+					res.cartList.map(cart => {
+						if(item.productId === cart.productId){
+
+							cart.checked = cart.checked === 1 ? 0 : 1
+							this.updateCartList(res.cartList).then(res => {
+								item.checked = item.checked === 1 ? 0 : 1
+								this.btnLock = false;
+							})
+						}
+					})			
+				})
+			},
+			//删除购物车
+			delProduct(item) {
+				if(this.btnLock){
+					return
+				}
+				this.btnLock = true			
+				this.getCartList().then(res => {
+					res.cartList.map((cart, index) => {
+						if(item.productId === cart.productId){
+							this.delCartList(item).then((a) => {
+								this.cartList.splice(index, 1)
+								this.btnLock = false;
+							})
+						}
+					})			
 				})
 			},
 			async getProductData() {
@@ -113,11 +166,16 @@
 			},
 			async updateCartList(value) {
 				await db().updateUser(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+			},
+			async delCartList(value) {
+				console.log(value)
+				await db().delCartList(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			}
 		},
 		beforeRouteLeave(to, from, next) {
+			this.$store.commit('setResultIsShow', false)
 			if(to.fullPath !== "/category" && to.fullPath !== "/cart"){
-				this.$store.commit('setHeaderIsShow', false)
+				this.$store.commit('setHeaderIsShow', false)			
 			}
 			next()
 		}
@@ -174,4 +232,5 @@
 			}
 		}
 	}
+	
 </style>

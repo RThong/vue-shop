@@ -80,12 +80,11 @@ const handleRequest = ({ status, data, ...rest }) => {
 	{
 		$push: {
 			cartList: {
-				productId: '5b1de5bd9511516765195b4c',
-				name: '小米6X 6GB+128GB',
-				price: '1999',
-				img: '/static/cf8df89713342d51d01bff5ed1bced57.jpg',
-				num: 2,
-				checked: 1
+				productId:"5b1de5bd9511516765196865",
+				name:"小米6X 6GB+128GB","price":"1999",
+				img:"/static/cf8df89713342d51d01bff5ed1bced57.jpg",
+				num:37,
+				checked:1
 			}
 		},
 		_method:'PUT'
@@ -93,7 +92,7 @@ const handleRequest = ({ status, data, ...rest }) => {
 	{
 		headers: {
 			...getHeaders(),
-			authorization: 'Gq19PpOJYtjkucVGBI2tAt15IFpeOkH4khir86YHhhXzIIC8qRgzyYXp2DEXgF5Q'
+			authorization: 'DX1rxg2IdoQ0HGzdcoG20fRQlndWEU2NrJEZD5id4hSDtLB96yCr9egOEzLaZ6DY'
 		}
 	})
 

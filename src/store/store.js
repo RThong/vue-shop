@@ -10,7 +10,8 @@ export default () => {
 			headerIsShow: false,
 			pullPageSlide: '',
 			headerText: '',
-			user: undefined
+			resultIsShow: false
+			// user: undefined
 		},
 		// getters: {
 		// 	cartList(state){
@@ -24,6 +25,7 @@ export default () => {
 		// 	}
 		// },
 		mutations: {
+			//设置footer的index
 			setNavIndex(state, index) {
 				if(index > state.curNavIndex){
 					state.pullPageSlide = 'slide-left'
@@ -33,9 +35,15 @@ export default () => {
 				}
 				state.curNavIndex = index
 			},
+			//设置header显示
 			setHeaderIsShow(state, status) {
 				state.headerIsShow = status
 			},
+			//设置result显示
+			setResultIsShow(state, status) {
+				state.resultIsShow = status
+			},
+			//左右滑动切换页面
 			setPullPageSlide(state, direct) {
 				if(direct === -1) {
 					state.pullPageSlide = 'slide-right'
@@ -44,12 +52,13 @@ export default () => {
 					state.pullPageSlide = 'slide-left'
 				}
 			},
+			//设置header文字
 			setHeaderText(state, text) {
 				state.headerText = text
 			},
-			setUser(state, user){
-				state.user = user
-			}
+			// setUser(state, user){
+			// 	state.user = user
+			// }
 		}
 	})
 

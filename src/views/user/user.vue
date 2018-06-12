@@ -1,6 +1,6 @@
 <template>
 	<div class="app-view app-view-with-footer user-wrapper">
-		<div v-if="username!==undefined" class="hd">
+		<div v-if="username" class="hd">
 			<div class="user-img">
 				<img src="https://s1.mi.com/m/images/m/default.png" alt="">
 			</div>
@@ -47,11 +47,12 @@
 <script>
 	import UiLine from '../../components/line/line.vue'
 	// import db from '../../../app.config'
-	import userMixin from '../../mixin/userMixin'
+	
 	export default {
-		mixins: [userMixin],
+		// mixins: [userMixin],
 		data(){
 			return {
+				username: undefined,
 				lineList: [
 					{
 						title: '会员中心',
@@ -83,15 +84,16 @@
 		components: {
 			UiLine
 		},
-		mounted() {		
+		mounted() {
+			this.username = sessionStorage.getItem('username')
 			// if(sessionStorage['user']){
 			// 	this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
 			// }	
 		},
 		computed: {
-			username() {
-				return this.$store.state.user === undefined? undefined : this.$store.state.user.username
-			}
+			// username() {
+			// 	return this.$store.state.user === undefined? undefined : this.$store.state.user.username
+			// }
 		},
 		methods: {
 			// login() {

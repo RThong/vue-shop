@@ -15,6 +15,9 @@
 				<router-view name="footer"></router-view>
 			</transition>
 		</div>
+		<div v-if="resultIsShow" class="result">
+			
+		</div>
 	</div>
 </template>
 <script>
@@ -24,7 +27,6 @@
 			}
 		},
 		mounted() {
-			// console.log('app')
 		},
 		components: {
 			Header: () => import('./components/header/header.vue')
@@ -38,6 +40,9 @@
 			},
 			headerIsShow() {
 				return this.$store.state.headerIsShow
+			},
+			resultIsShow() {
+				return this.$store.state.resultIsShow
 			}
 		},
 		watch: {
@@ -77,5 +82,15 @@
     height: 100%;
     max-width: 720px;
     margin: 0 auto;
+	}
+	.result{
+		height: 52px;
+		/*width: 100%;*/
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: #000;
+		z-index: 999;
 	}
 </style>

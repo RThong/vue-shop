@@ -39,6 +39,7 @@
 				try{
 					const user = await db().login(this.username, this.password)
 					const res = await db().findUser(user.userId, user.id)
+					console.log(user)
 					this.id = user.id
 					if(res){
 						sessionStorage.setItem('userId', user.userId)

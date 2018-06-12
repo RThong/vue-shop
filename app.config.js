@@ -78,6 +78,21 @@ export default () => {
 						authorization: authorizationId
 					}
 				}))
-		}
+		},
+		async delCartList(value, userId, authorizationId) {
+			return handleRequest(await axios.post(`${baseURL}/user/${userId}`,
+				{
+					$pull: {
+						cartList: value,
+					},
+					_method: 'PUT'
+				},
+				{
+					headers: {
+						...getHeaders(),
+						authorization: authorizationId
+					}
+				}))
+		},
 	}
 }

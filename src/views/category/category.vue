@@ -1053,12 +1053,6 @@
 		components: {
 			categoryList
 		},
-		mounted() {
-			this.$store.commit('setHeaderText', '分类')
-			if(!this.$store.state.headerIsShow){
-				this.$store.commit('setHeaderIsShow', true)
-			}
-		},
 		activated() {
 			this.$store.commit('setHeaderText', '分类')
 			if(!this.$store.state.headerIsShow){
