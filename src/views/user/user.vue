@@ -84,11 +84,8 @@
 		components: {
 			UiLine
 		},
-		mounted() {
+		activated() {
 			this.username = sessionStorage.getItem('username')
-			// if(sessionStorage['user']){
-			// 	this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
-			// }	
 		},
 		computed: {
 			// username() {

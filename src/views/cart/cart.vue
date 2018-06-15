@@ -38,7 +38,7 @@
 		data(){
 			return {
 				isLogin: false,
-				cartList: [],
+				// cartList: [],
 				productList: [],
 				btnLock: false
 			}
@@ -48,17 +48,24 @@
 			Card
 		},
 		mounted() {
-			//判断登录
-			if(sessionStorage.getItem('userId')){
-				this.isLogin = true		
-				this.getCartList().then(res => {
-					this.cartList = res.cartList
-				})
-			}
+			
 			this.getProductData()
 		},
+		computed: {
+			cartList() {
+				return this.$store.state.cartList
+			}
+		},
 		activated() {
+			//判断登录
+			if(sessionStorage.getItem('userId')){
+				this.isLogin = true
+				this.getCartList().then(res => {
+					this.$store.commit('setCartList', res.cartList)
+				})
+			}
 			if(this.cartList.length > 0){
+				this.$store.commit('setFooterIsShow', false)
 				this.$store.commit('setResultIsShow', true)
 			}
 			else{
@@ -72,6 +79,7 @@
 		watch: {
 			cartList(val) {
 				if(val.length > 0){
+					this.$store.commit('setFooterIsShow', false)
 					this.$store.commit('setResultIsShow', true)
 				}
 				else{
@@ -91,8 +99,8 @@
 						res.cartList.map(cart => {
 							if(item.productId === cart.productId){
 								cart.num--
-								this.updateCartList(res.cartList).then(res => {
-									item.num--
+								this.updateCartList(res.cartList).then(() => {
+									this.$store.commit('setCartList', res.cartList)
 									this.btnLock = false;
 								})
 							}
@@ -110,8 +118,8 @@
 					res.cartList.map(cart => {
 						if(item.productId === cart.productId){
 							cart.num++
-							this.updateCartList(res.cartList).then(res => {
-								item.num++
+							this.updateCartList(res.cartList).then(() => {
+								this.$store.commit('setCartList', res.cartList)
 								this.btnLock = false;
 							})
 						}
@@ -129,8 +137,8 @@
 						if(item.productId === cart.productId){
 
 							cart.checked = cart.checked === 1 ? 0 : 1
-							this.updateCartList(res.cartList).then(res => {
-								item.checked = item.checked === 1 ? 0 : 1
+							this.updateCartList(res.cartList).then(() => {
+								this.$store.commit('setCartList', res.cartList)
 								this.btnLock = false;
 							})
 						}
@@ -146,8 +154,9 @@
 				this.getCartList().then(res => {
 					res.cartList.map((cart, index) => {
 						if(item.productId === cart.productId){
-							this.delCartList(item).then((a) => {
-								this.cartList.splice(index, 1)
+							this.delCartList(item).then(() => {
+								res.cartList.splice(index, 1)
+								this.$store.commit('setCartList', res.cartList)
 								this.btnLock = false;
 							})
 						}
@@ -168,12 +177,12 @@
 				await db().updateUser(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			},
 			async delCartList(value) {
-				console.log(value)
 				await db().delCartList(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			}
 		},
 		beforeRouteLeave(to, from, next) {
 			this.$store.commit('setResultIsShow', false)
+			this.$store.commit('setFooterIsShow', true)
 			if(to.fullPath !== "/category" && to.fullPath !== "/cart"){
 				this.$store.commit('setHeaderIsShow', false)			
 			}
@@ -232,5 +241,4 @@
 			}
 		}
 	}
-	
 </style>

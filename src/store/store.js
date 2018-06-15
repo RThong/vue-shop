@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import db from '../../app.config'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -10,20 +11,27 @@ export default () => {
 			headerIsShow: false,
 			pullPageSlide: '',
 			headerText: '',
-			resultIsShow: false
-			// user: undefined
+			resultIsShow: false,
+			footerIsShow: true,
+			cartList: []
 		},
-		// getters: {
-		// 	cartList(state){
-		// 		console.log('getters')
-		// 		if(state.user === undefined){
-		// 			return []
-		// 		}
-		// 		else{
-		// 			return state.user.cartList
-		// 		}				
-		// 	}
-		// },
+		getters: {
+			cartCount(state) {
+				let count = 0
+				state.cartList.map((item) => {
+					count += item.num
+				})
+				return count
+			},
+			cartTotalPrice(state) {
+				let price = 0
+				state.cartList.map((item) => {
+					console.log(parseInt(item.price))
+					price += parseInt(item.price) * item.num
+				})
+				return price
+			},
+		},
 		mutations: {
 			//设置footer的index
 			setNavIndex(state, index) {
@@ -38,6 +46,10 @@ export default () => {
 			//设置header显示
 			setHeaderIsShow(state, status) {
 				state.headerIsShow = status
+			},
+			//设置footer显示
+			setFooterIsShow(state, status) {
+				state.footerIsShow = status
 			},
 			//设置result显示
 			setResultIsShow(state, status) {
@@ -56,10 +68,10 @@ export default () => {
 			setHeaderText(state, text) {
 				state.headerText = text
 			},
-			// setUser(state, user){
-			// 	state.user = user
-			// }
-		}
+			setCartList(state, data) {
+				state.cartList = data
+			}
+		},
 	})
 
 	return store

@@ -12,11 +12,20 @@
 				</keep-alive>
 			</transition>
 			<transition name="slide-down">
-				<router-view name="footer"></router-view>
+				<router-view name="footer" v-show="footerIsShow" :mode="footerIsShow?'out-in':''"></router-view>
 			</transition>
 		</div>
 		<div v-if="resultIsShow" class="result">
-			
+			<div class="result-box left-box">
+				<p>总{{cartCount}}件 金额：</p>
+				<p><span class="price">{{cartTotalPrice}}</span> 元</p>
+			</div>
+			<div class="result-box middle-box">
+				<router-link to="category">继续购物</router-link>
+			</div>
+			<div class="result-box right-box">
+				<router-link to="">去结算</router-link>
+			</div>
 		</div>
 	</div>
 </template>
@@ -43,6 +52,15 @@
 			},
 			resultIsShow() {
 				return this.$store.state.resultIsShow
+			},
+			footerIsShow() {
+				return this.$store.state.footerIsShow
+			},
+			cartCount() {
+				return this.$store.getters.cartCount
+			},
+			cartTotalPrice() {
+				return this.$store.getters.cartTotalPrice
 			}
 		},
 		watch: {
@@ -85,12 +103,49 @@
 	}
 	.result{
 		height: 52px;
-		/*width: 100%;*/
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
-		background: #000;
 		z-index: 999;
+		background: #fff;
+		display: flex;
+		font-size: 14px;
+		.result-box{
+			flex: 1;
+			a{
+				display: block;
+				height: 100%;
+			}
+		}
+		.left-box{
+			display: flex;
+			color: #999;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			font-size: 12px;
+			.price{
+				font-size: 22px;
+				color: $mainColor;
+				font-weight: bolder;
+			}
+		}
+		.middle-box{
+			background: #f4f4f4;
+			text-align: center;
+			line-height: 52px;		
+			a{				
+				color: #333;
+			}
+		}
+		.right-box{
+			background: $mainColor;
+			text-align: center;
+			line-height: 52px;		
+			a{				
+				color: #fff;
+			}
+		}
 	}
 </style>
