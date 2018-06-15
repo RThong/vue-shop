@@ -6,15 +6,19 @@
 		</transition>
 		<!-- 用于/search / 进行路由渲染 -->
 		<div class="app-view-wrapper">
+			
 			<transition :name="transitionName">
 				<keep-alive exclude="login">
 					<router-view></router-view>
 				</keep-alive>
 			</transition>
+
 			<transition name="slide-down">
 				<router-view name="footer" v-show="footerIsShow" :mode="footerIsShow?'out-in':''"></router-view>
 			</transition>
 		</div>
+
+
 		<div v-if="resultIsShow" class="result">
 			<div class="result-box left-box">
 				<p>总{{cartCount}}件 金额：</p>
@@ -24,7 +28,7 @@
 				<router-link to="category">继续购物</router-link>
 			</div>
 			<div class="result-box right-box">
-				<router-link to="">去结算</router-link>
+				<a @click="goBuy">去结算</a>
 			</div>
 		</div>
 	</div>
@@ -56,6 +60,9 @@
 			footerIsShow() {
 				return this.$store.state.footerIsShow
 			},
+			cartList() {
+				return this.$store.state.cartList
+			},
 			cartCount() {
 				return this.$store.getters.cartCount
 			},
@@ -85,6 +92,22 @@
 			}
 		},
 		methods: {
+			goBuy() {
+				let checkedList = []
+				this.cartList.map(item => {
+					if(item.checked === 1){
+						checkedList.push(item)
+					}
+				})
+				if(checkedList.length === 0){
+					this.$toast('请勾选需要结算的商品', {
+						type: 'fail'
+					})
+				}
+				else{
+					//订单页
+				}
+			}
 		}
 	}
 </script>

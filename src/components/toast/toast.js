@@ -11,7 +11,9 @@ const ToastConstructor = Vue.extend({
 		this.$on('closed', () => {
 			document.body.removeChild(this.$el)
 			this.$destroy()
-			this.callback()
+			if(this.callback){
+				this.callback()
+			}
 		})
 	},
 	beforeDestroy(){

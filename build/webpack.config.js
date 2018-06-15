@@ -12,18 +12,16 @@ const devServer = {
 	historyApiFallback: {
 		index: '/index.html'
 	},//history模式手动刷新url会发送请求，出现错误
-	hot: true,
-  proxy: {
-    "/api": "http://localhost:3000"
-  }
+	hot: true
 }
 
 const config = {
 	mode: 'development',
 	entry: path.join(__dirname, '../src/index'),
 	output: {
-		filename: 'bundle.js',
-		path: path.join(__dirname, '../dist')
+		filename: 'bundle.[hash:8].js',
+		path: path.join(__dirname, '../dist'),
+    publicPath: 'http://localhost:8080/'
 	},
 	module: {
 		rules: [

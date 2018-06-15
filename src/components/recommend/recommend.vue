@@ -27,7 +27,7 @@
 				<span slot="l2-price">¥5599</span>
 			</list-one>
 			<div class="card-list">
-				<card v-for="(item,index) in productList" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.img" :tag="item.tag" :key="index"></card>
+				<card v-for="(item,index) in productList" :id="item.id" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.img" :tag="item.tag" :key="index"></card>
 			</div>
 		</div>		
 	</div>

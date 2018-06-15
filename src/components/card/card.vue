@@ -1,5 +1,5 @@
 <template>
-	<router-link class="card" to="/">
+	<router-link class="card" :to="`/commodity/detail/${id}`">
 		<div class="img">
 			<img v-lazy="src" alt="">
 		</div>
@@ -19,6 +19,7 @@
 <script>
 	export default {
 		props: {
+			id: String,
 			name: String,
 			intro: String,
 			price: String,
