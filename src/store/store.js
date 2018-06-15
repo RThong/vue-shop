@@ -19,15 +19,18 @@ export default () => {
 			cartCount(state) {
 				let count = 0
 				state.cartList.map((item) => {
-					count += item.num
+					if(item.checked === 1){
+						count += item.num
+					}				
 				})
 				return count
 			},
 			cartTotalPrice(state) {
 				let price = 0
 				state.cartList.map((item) => {
-					console.log(parseInt(item.price))
-					price += parseInt(item.price) * item.num
+					if(item.checked === 1){
+						price += parseInt(item.price) * item.num
+					}
 				})
 				return price
 			},
@@ -68,8 +71,13 @@ export default () => {
 			setHeaderText(state, text) {
 				state.headerText = text
 			},
+			//所有修改购物车都通过mutation
 			setCartList(state, data) {
 				state.cartList = data
+				//如果没有cart  footer就显示
+				if(data.length === 0){
+					state.footerIsShow = true
+				}
 			}
 		},
 	})
