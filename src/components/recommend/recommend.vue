@@ -2,9 +2,10 @@
 	<div>
 		<div class="page-list">
 			<div class="swiper-container swiper-container-recommend">
-				<div class="swiper-wrapper" v-lazy-container="{ selector: 'img'}">
+				<div class="swiper-wrapper">
 					<router-link v-for="(item,index) in swiperUrl" tag="div" to="cart" class="swiper-slide" :key="index">
-						<img :data-src="item" class="big-img" alt="" data-loading="src/assets/images/loading.svg">
+						<img :data-src="item" class="big-img swiper-lazy">
+						<div class="swiper-lazy-preloader"></div>
 					</router-link>
 				</div>
 				<div class="swiper-pagination">
@@ -23,17 +24,18 @@
 			<list-one src="/static/21647f78-b335-55c1-2a1d-83c273624436!720x360.webp" tag="/static/289039eb-c3ed-7c26-69c3-5b07b72a797d.webp?w=120&h=48">
 				<span slot="l1-name">15.6"笔记本Pro i5 8GB</span>
 				<span slot="l1-price">¥4999</span>
-				<span slot="l2-name">更强悍的专业笔记本，全金属强化机身</span>
+				<span slot="l2-name">更强悍的专业笔记本，全金属强化机身11111</span>
 				<span slot="l2-price">¥5599</span>
 			</list-one>
 			<div class="card-list">
-				<card v-for="(item,index) in productList" :id="item.id" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.img" :tag="item.tag" :key="index"></card>
+				<card v-for="(item,index) in productList" :id="item.id" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.cover" :tag="item.tag" :key="index"></card>
 			</div>
 		</div>		
 	</div>
 </template>
 <script>
-	import Swiper from '../../assets/js/Swiper'
+	import '../../../node_modules/swiper/dist/css/swiper.min.scss'
+	import Swiper from 'swiper'
 	import ListOne from '../list-one/list-one.vue'
 	import Card from '../card/card.vue'
 	import db from '../../../app.config'
@@ -61,18 +63,28 @@
 			Card
 		},
 		mounted() {
-			const swiper = new Swiper('.swiper-container-recommend', {})
+			new Swiper('.swiper-container-recommend', {
+				lazy: {
+					loadPrevNext: true,
+				},
+				resistanceRatio: 0,
+				pagination: {
+					el: '.swiper-pagination'
+				}
+			})
 			this.getData()
 			
 		},
 		methods: {
 			async getData() {
-				this.productList = await db().getProduct()
+				this.productList = await db().getAllProduct()
 			}
 		},
 
 	}
 </script>
 <style lang="scss" scoped>
-	
+	.swiper-container{
+		height: 187px;
+	}
 </style>

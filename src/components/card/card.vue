@@ -1,5 +1,5 @@
 <template>
-	<router-link class="card" :to="`/commodity/detail/${id}`">
+	<a class="card" @click="goDetail">
 		<div class="img">
 			<img v-lazy="src" alt="">
 		</div>
@@ -14,7 +14,7 @@
 		<div v-if="tag" class="tag">
 			<img :src="tag" alt="">
 		</div>
-	</router-link>
+	</a>
 </template>
 <script>
 	export default {
@@ -30,6 +30,12 @@
  				default: ''
  			}
  		},
+ 		methods: {
+ 			goDetail() {
+ 				this.$store.commit('setPullPageSlide', 1)
+ 				this.$router.push(`/commodity/detail/${this.id}`)				
+ 			}
+ 		}
 	}
 </script>
 <style lang="scss" scoped>

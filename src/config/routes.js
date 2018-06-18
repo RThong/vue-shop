@@ -59,5 +59,6 @@ export default [
 		path: '/commodity/detail/:id',
 		name: 'detail',
 		component: () => import('../views/detail/detail.vue')
+		// component: () => import('../views/detail/detail.vue')
 	}
 ]

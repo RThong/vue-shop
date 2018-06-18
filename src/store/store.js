@@ -12,7 +12,7 @@ export default () => {
 			pullPageSlide: '',
 			headerText: '',
 			resultIsShow: false,
-			footerIsShow: true,
+			// footerIsShow: true,
 			cartList: []
 		},
 		getters: {
@@ -51,9 +51,9 @@ export default () => {
 				state.headerIsShow = status
 			},
 			//设置footer显示
-			setFooterIsShow(state, status) {
-				state.footerIsShow = status
-			},
+			// setFooterIsShow(state, status) {
+			// 	state.footerIsShow = status
+			// },
 			//设置result显示
 			setResultIsShow(state, status) {
 				state.resultIsShow = status

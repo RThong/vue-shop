@@ -60,7 +60,7 @@ export default () => {
 								}
 							}))
 		},
-		async getProduct() {
+		async getAllProduct() {
 			return handleRequest(await axios.get(`${baseURL}/product`,
 			{
 				headers: getHeaders()
@@ -93,6 +93,12 @@ export default () => {
 						authorization: authorizationId
 					}
 				}))
+		},
+		async getProduct(id) {
+			return handleRequest(await axios.get(`${baseURL}/product/${id}`,
+			{
+				headers: getHeaders()
+			}))
 		},
 	}
 }

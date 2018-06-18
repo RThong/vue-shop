@@ -21,7 +21,7 @@
 					<img v-lazy="'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e95ade2750a7fde92369b416c7d3176d.jpg'" alt="">
 				</div>
 				<div class="card-list">
-					<card v-for="(item,index) in productList" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.img" :tag="item.tag" :key="index"></card>
+					<card v-for="(item,index) in productList" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.cover" :tag="item.tag" :key="index"></card>
 				</div>
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 				})
 			}
 			if(this.cartList.length > 0){
-				this.$store.commit('setFooterIsShow', false)
+				// this.$store.commit('setFooterIsShow', false)
 				this.$store.commit('setResultIsShow', true)
 			}
 			else{
@@ -79,7 +79,7 @@
 		watch: {
 			cartList(val) {
 				if(val.length > 0){
-					this.$store.commit('setFooterIsShow', false)
+					// this.$store.commit('setFooterIsShow', false)
 					this.$store.commit('setResultIsShow', true)
 				}
 				else{
@@ -164,7 +164,7 @@
 				})
 			},
 			async getProductData() {
-				this.productList = await db().getProduct()
+				this.productList = await db().getAllProduct()
 			},
 			async getCartList() {
 				try{
@@ -182,7 +182,7 @@
 		},
 		beforeRouteLeave(to, from, next) {
 			this.$store.commit('setResultIsShow', false)
-			this.$store.commit('setFooterIsShow', true)
+			// this.$store.commit('setFooterIsShow', true)
 			if(to.fullPath !== "/category" && to.fullPath !== "/cart"){
 				this.$store.commit('setHeaderIsShow', false)			
 			}

@@ -14,7 +14,10 @@
 			</transition>
 
 			<transition name="slide-down">
-				<router-view name="footer" v-show="footerIsShow" :mode="footerIsShow?'out-in':''"></router-view>
+				<!-- <router-view name="footer" v-show="footerIsShow" :mode="footerIsShow?'out-in':''"></router-view>
+ -->	
+ 				<router-view name="footer"></router-view>
+		
 			</transition>
 		</div>
 
@@ -57,9 +60,9 @@
 			resultIsShow() {
 				return this.$store.state.resultIsShow
 			},
-			footerIsShow() {
-				return this.$store.state.footerIsShow
-			},
+			// footerIsShow() {
+			// 	return this.$store.state.footerIsShow
+			// },
 			cartList() {
 				return this.$store.state.cartList
 			},
@@ -73,7 +76,11 @@
 		watch: {
 			//匹配底部nav改变路由
 			'$route' (to, from) {
-				if(from.matched.length === 0 || from.meta.navIndex === undefined || to.meta.navIndex === undefined){
+				// console.log(from.matched, to.meta)
+				// if(from.matched.length === 0 || from.meta.navIndex === undefined || to.meta.navIndex === undefined){
+				// 	return
+				// }
+				if(!from.meta.navIndex || !to.meta.navIndex){
 					return
 				}
 				const fromIndex = from.meta.navIndex

@@ -17,8 +17,7 @@
 	</div>
 </template>
 <script>
-	// import '../../assets/styles/Swiper.scss'
-	import Swiper from '../../assets/js/Swiper'
+	import Swiper from 'swiper'
 	export default {
 		name: 'phone',
 		data() {

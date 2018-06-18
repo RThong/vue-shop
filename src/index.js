@@ -14,7 +14,6 @@ Vue.use(VueLazyload, {
   // attempt: 1
 })
 import './assets/styles/global.scss'
-import './assets/styles/Swiper.scss'
 
 import createRouter from './config/router'
 import createStore from './store/store'

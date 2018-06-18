@@ -21,7 +21,7 @@ const config = {
 	output: {
 		filename: 'bundle.[hash:8].js',
 		path: path.join(__dirname, '../dist'),
-    publicPath: 'http://localhost:8080/'
+    // publicPath: 'http://localhost:8080/'
 	},
 	module: {
 		rules: [
