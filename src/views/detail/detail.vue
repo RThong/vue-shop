@@ -21,8 +21,8 @@
 				<font color="#ff4a00">{{product.redBrief}}</font>{{product.brief}}
 			</div>
 			<div class="product-price">
-				<div class="new-price">{{product.price}}</div>
-				<div class="old-price"><del>{{product.oldPrice}}</del></div>
+				<div class="new-price"><span class="mark">¥</span>{{product.price}}</div>
+				<div class="old-price" v-if="product.oldPrice"><del><span class="mark">¥</span>{{product.oldPrice}}</del></div>
 			</div>
 		</div>
 
@@ -35,7 +35,7 @@
 				<i class="image-icons icon-cart"></i>
 				<span>购物车</span>
 			</router-link>
-			<div class="add-cart">
+			<div class="add-cart" @click="addCart">
 				加入购物车
 			</div>
 		</div>
@@ -49,19 +49,15 @@
 		name: 'detail',
 		data() {
 			return {
-				// swiperUrl: ['https://i8.mifile.cn/v1/a1/7dc38112-bbf4-f3fa-db39-5f4674f9d0d4!720x792.webp',
-				// 'https://i8.mifile.cn/v1/a1/7d040eee-5569-5074-864d-8c03f073e8c8!720x792.webp',
-				// 'https://i8.mifile.cn/v1/a1/e3980743-9d5d-0a8a-9dab-0a37c8b98ef5!720x792.webp',
-				// 'https://i8.mifile.cn/v1/a1/60acd23a-cd84-700d-a7fe-6bb31e5ff71b!720x792.webp',
-				// 'https://i8.mifile.cn/v1/a1/dbed9798-2cab-1e5c-d28d-f83468567cec.webp'
-				// ],
-				product: {}
+				product: {},
+				addCartFlag: false
 			}
 		},
 		mounted() {
 			console.log('mounted')
 			this.getData().then((res) => {
 				this.product = res
+				//获取数据后dom还没有更新
 				this.$nextTick(() => {
 					new Swiper('.swiper-container-detail', {
 						lazy: {
@@ -72,24 +68,66 @@
 							el: '.swiper-pagination'
 						}
 					})
-				})
-					
-				
-			})
-			
+				})			
+			})		
 		},
 		methods: {
 			goBack() {
-				this.$store.commit('setPullPageSlide', -1)
+				// this.$store.commit('setPullPageSlide', -1)
 				this.$router.go(-1)
 			},
 			getData() {
 				return db().getProduct(this.$route.params.id)
+			},
+			async addCart() {
+				if(this.addCartFlag){
+					return
+				}
+				this.addCartFlag = true
+
+				if(!sessionStorage.getItem('userId')){
+					this.$toast('请先登录', {
+						type: 'fail',
+						callback: () => {
+							this.$router.push('/login')
+							this.addCartFlag = false
+						}
+					})
+					return
+				}
+				const res = await db().findUser(sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				for(let cart of res.cartList){
+					if(cart.id === this.product.id){
+						await db().delCart(cart, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+						cart.num++
+						await db().addCart(cart, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+						this.$toast('加入购物车成功', {
+							type: 'success'
+						})
+						this.addCartFlag = false
+						return
+					}
+				}
+				const data = {}
+				data.id = this.product.id
+				data.img = this.product.cover
+				data.name = this.product.name
+				data.price = this.product.price
+				data.checked = 1
+				data.num = '1'
+				await db().addCart(data, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				this.$toast('加入购物车成功', {
+					type: 'success'
+				})
+				this.addCartFlag = false
 			}
 		}
 	}
 </script>
 <style lang="scss" scoped>
+.mark{
+	font-size: 18px;
+}
 .swiper-slide{
 	height: 413px;
 	/*img{

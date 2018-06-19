@@ -79,7 +79,7 @@ export default () => {
 					state.footerIsShow = true
 				}
 			}
-		},
+		}
 	})
 
 	return store

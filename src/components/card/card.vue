@@ -7,8 +7,8 @@
 			<div class="name">{{name}}</div>
 			<div class="intro">{{intro}}</div>
 			<div class="price">
-				{{price}}
-				<span class="price-old"><del>{{priceOld}}</del></span>
+				<span class="mark">¥</span>{{price}}
+				<span class="price-old" v-if="priceOld"><del><span class="mark">¥</span>{{priceOld}}</del></span>
 			</div>
 		</div>
 		<div v-if="tag" class="tag">
@@ -39,6 +39,9 @@
 	}
 </script>
 <style lang="scss" scoped>
+	.mark{
+		font-size: 12px;
+	}
 	.card{
 		width: 186px;
 		position: relative;

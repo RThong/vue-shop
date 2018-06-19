@@ -9,6 +9,9 @@ const devServer = {
 	overlay: {
 		errors: true
 	},
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  },
 	historyApiFallback: {
 		index: '/index.html'
 	},//history模式手动刷新url会发送请求，出现错误
@@ -21,7 +24,7 @@ const config = {
 	output: {
 		filename: 'bundle.[hash:8].js',
 		path: path.join(__dirname, '../dist'),
-    // publicPath: 'http://localhost:8080/'
+    publicPath: 'http://127.0.0.1:8080/'
 	},
 	module: {
 		rules: [

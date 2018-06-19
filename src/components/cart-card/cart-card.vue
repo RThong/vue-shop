@@ -1,7 +1,7 @@
 <template>
 	<div class="item">
 		<div class="choose" :class="checked === 1? 'checked':'unchecked'" @click="changeChecked"></div>
-		<router-link to="" class="item-img">
+		<router-link :to="`/commodity/detail/${id}`" class="item-img">
 			<img v-lazy="img" alt="">
 		</router-link>
 		<div class="item-info">
@@ -27,7 +27,7 @@
 </template>
 <script>
 	export default {
-		props: ['name', 'img', 'price', 'num', 'checked'],
+		props: ['name', 'img', 'price', 'num', 'checked', 'id'],
 		data() {
 			return {
 				subActive: true,

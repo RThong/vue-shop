@@ -14,18 +14,18 @@
 				</router-link>
 			</div>
 			<div v-else class="items">
-				<cart-card v-for="(item,index) in cartList" :checked="item.checked" :name="item.name" :price="item.price" :img="item.img" :num="item.num" @sub="inputSub(item)" @add="inputAdd(item)" @changeChecked="changeChecked(item)" @delCartList="delProduct(item)" :key="index"></cart-card>
+				<cart-card v-for="(item,index) in cartList" :checked="item.checked" :id="item.id" :name="item.name" :price="item.price" :img="item.img" :num="item.num" @sub="inputSub(item)" @add="inputAdd(item)" @changeChecked="changeChecked(item)" @delCartList="delProduct(item)" :key="index"></cart-card>
 			</div>
 			<div class="recommend-contianer">
 				<div class="recommend-top-img">
 					<img v-lazy="'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e95ade2750a7fde92369b416c7d3176d.jpg'" alt="">
 				</div>
 				<div class="card-list">
-					<card v-for="(item,index) in productList" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.cover" :tag="item.tag" :key="index"></card>
+					<card v-for="(item,index) in productList" :id="item.id" :name="item.name" :price="item.price" :price-old="item.oldPrice" :intro="item.intro" :src="item.cover" :tag="item.tag" :key="index"></card>
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 </template>
 <script>
@@ -97,7 +97,7 @@
 				if(item.num >1){					
 					this.getCartList().then(res => {
 						res.cartList.map(cart => {
-							if(item.productId === cart.productId){
+							if(item.id === cart.id){
 								cart.num--
 								this.updateCartList(res.cartList).then(() => {
 									this.$store.commit('setCartList', res.cartList)
@@ -116,7 +116,7 @@
 				this.btnLock = true
 				this.getCartList().then(res => {
 					res.cartList.map(cart => {
-						if(item.productId === cart.productId){
+						if(item.id === cart.id){
 							cart.num++
 							this.updateCartList(res.cartList).then(() => {
 								this.$store.commit('setCartList', res.cartList)
@@ -134,12 +134,12 @@
 				this.btnLock = true			
 				this.getCartList().then(res => {
 					res.cartList.map(cart => {
-						if(item.productId === cart.productId){
-
+						if(item.id === cart.id){
 							cart.checked = cart.checked === 1 ? 0 : 1
 							this.updateCartList(res.cartList).then(() => {
 								this.$store.commit('setCartList', res.cartList)
 								this.btnLock = false;
+								return
 							})
 						}
 					})			
@@ -153,7 +153,7 @@
 				this.btnLock = true			
 				this.getCartList().then(res => {
 					res.cartList.map((cart, index) => {
-						if(item.productId === cart.productId){
+						if(item.id === cart.id){
 							this.delCartList(item).then(() => {
 								res.cartList.splice(index, 1)
 								this.$store.commit('setCartList', res.cartList)
@@ -174,10 +174,10 @@
 				}		
 			},
 			async updateCartList(value) {
-				await db().updateUser(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				await db().updateCart(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			},
 			async delCartList(value) {
-				await db().delCartList(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				await db().delCart(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			}
 		},
 		beforeRouteLeave(to, from, next) {

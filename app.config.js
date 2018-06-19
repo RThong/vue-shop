@@ -66,7 +66,7 @@ export default () => {
 				headers: getHeaders()
 			}))
 		},
-		async updateUser(value, userId, authorizationId) {
+		async updateCart(value, userId, authorizationId) {
 			return handleRequest(await axios.post(`${baseURL}/user/${userId}`,
 				{
 					cartList: value,
@@ -79,7 +79,22 @@ export default () => {
 					}
 				}))
 		},
-		async delCartList(value, userId, authorizationId) {
+		async addCart(value, userId, authorizationId) {
+			return handleRequest(await axios.post(`${baseURL}/user/${userId}`,
+				{
+					$push: {
+						cartList: value,
+					},
+					_method: 'PUT'
+				},
+				{
+					headers: {
+						...getHeaders(),
+						authorization: authorizationId
+					}
+				}))
+		},
+		async delCart(value, userId, authorizationId) {
 			return handleRequest(await axios.post(`${baseURL}/user/${userId}`,
 				{
 					$pull: {

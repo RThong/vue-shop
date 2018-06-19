@@ -113,7 +113,7 @@
 				this.$router.push('user')
 			},
 			goSearch() {
-				this.$store.commit('setPullPageSlide', 1)
+				// this.$store.commit('setPullPageSlide', 1)
 				this.$router.push('search')
 			}
 		}

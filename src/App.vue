@@ -8,18 +8,22 @@
 		<div class="app-view-wrapper">
 			
 			<transition :name="transitionName">
-				<keep-alive exclude="login">
+				<keep-alive :exclude="['login','detail']">
 					<router-view></router-view>
 				</keep-alive>
 			</transition>
 
-			<transition name="slide-down">
+			<!-- <transition name="slide-down">
+ 				<router-view name="footer"></router-view>
+		
+			</transition> -->
+		</div>
+		<transition name="slide-down">
 				<!-- <router-view name="footer" v-show="footerIsShow" :mode="footerIsShow?'out-in':''"></router-view>
  -->	
  				<router-view name="footer"></router-view>
 		
 			</transition>
-		</div>
 
 
 		<div v-if="resultIsShow" class="result">
@@ -43,6 +47,9 @@
 			}
 		},
 		mounted() {
+			if(!sessionStorage.getItem('urlHistory')){
+				sessionStorage.setItem('urlHistory', '')
+			}
 		},
 		components: {
 			Header: () => import('./components/header/header.vue')
@@ -80,22 +87,44 @@
 				// if(from.matched.length === 0 || from.meta.navIndex === undefined || to.meta.navIndex === undefined){
 				// 	return
 				// }
-				if(!from.meta.navIndex || !to.meta.navIndex){
+				// const toDepth = to.path.split('/').length
+				// const fromDepth = from.path.split('/').length
+				let urlHistory = sessionStorage.getItem('urlHistory')
+
+				 
+
+				//底部nav切换
+				if(from.meta.navIndex !== undefined && to.meta.navIndex !== undefined){
+					const fromIndex = from.meta.navIndex
+					const toIndex = to.meta.navIndex
+
+					if(urlHistory.indexOf(to.path) === -1){
+						urlHistory += to.path
+					}
+					sessionStorage.setItem('urlHistory', urlHistory)
+					console.log(fromIndex,toIndex)
+
+					this.$store.commit('setNavIndex', toIndex)
+
+					if(toIndex < fromIndex)	{
+						this.$store.commit('setPullPageSlide', -1)
+					}
+					else if(toIndex > fromIndex) {
+						this.$store.commit('setPullPageSlide', 1)
+					}
 					return
 				}
-				const fromIndex = from.meta.navIndex
-				const toIndex = to.meta.navIndex
-
-				console.log(fromIndex,toIndex)
-
-				this.$store.commit('setNavIndex', toIndex)
-
-				if(toIndex < fromIndex)	{
-					this.$store.commit('setPullPageSlide', -1)
+				else{
+					if(urlHistory.indexOf(to.path) === -1){
+						urlHistory += to.path
+						sessionStorage.setItem('urlHistory', urlHistory)
+						this.$store.commit('setPullPageSlide', 1)
+					}
+					else{
+						this.$store.commit('setPullPageSlide', -1)
+					}
 				}
-				else if(toIndex > fromIndex) {
-					this.$store.commit('setPullPageSlide', 1)
-				}
+				
 			}
 		},
 		methods: {
