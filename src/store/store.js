@@ -12,7 +12,6 @@ export default () => {
 			pullPageSlide: '',
 			headerText: '',
 			resultIsShow: false,
-			// footerIsShow: true,
 			cartList: []
 		},
 		getters: {
@@ -20,7 +19,7 @@ export default () => {
 				let count = 0
 				state.cartList.map((item) => {
 					if(item.checked === 1){
-						count += item.num
+						count += parseInt(item.num)
 					}				
 				})
 				return count

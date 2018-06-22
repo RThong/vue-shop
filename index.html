@@ -7,6 +7,79 @@
 	<title>vue-shop</title>
 </head>
 <body>
-	<div id="root"></div>
+	<div id="root">
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      html,body{
+        height: 100%;
+      }
+      .skeleton-header{
+        position: relative;
+        z-index: 2;
+        height: 50px;
+        background: #eee;
+        box-shadow: 0 3px 14px -1px rgba(0,0,0,.12);
+      }
+      .skeleton-swiper{
+        height: 188px;
+        background: #eee;
+        position: relative;
+      }
+      .skeleton-swiper .pagination{
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+      } 
+      .skeleton-swiper .l{       
+        transform: translateX(-12px);
+        background: #fff;      
+      }
+      .skeleton-swiper .r{
+        transform: translateX(12px);
+        background: #fcfcfc;
+      }
+      .skeleton-tabs{
+        display: flex;
+        justify-content: space-around;
+        padding: 20px 0;
+      }
+      .skeleton-tabs .skeleton-tabs-item{
+        width: 40px;
+        height: 35px;
+        background: #eee;
+      }
+      .skeleton-footer{
+        position: fixed;
+        height: 52px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        box-shadow: 0 3px 14px 2px rgba(0,0,0,.12);
+        background: #fff;
+      }
+    </style>
+		<div class="skeleton-header">
+      
+    </div>
+    <div class="skeleton-swiper">
+      <div class="pagination l"></div>
+      <div class="pagination r"></div>
+    </div>
+    <div class="skeleton-tabs">
+      <div class="skeleton-tabs-item"></div>
+      <div class="skeleton-tabs-item"></div>
+      <div class="skeleton-tabs-item"></div>
+      <div class="skeleton-tabs-item"></div>
+    </div>
+    <div class="skeleton-footer">
+      
+    </div>
+	</div>
 </body>
 </html>

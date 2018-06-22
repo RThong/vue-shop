@@ -56,31 +56,31 @@
 					},
 					{
 						name: '智能',
-						component: 'computer'
+						component: 'recommend'
 					},
 					{
 						name: '电视',
-						component: 'computer'
+						component: 'phone'
 					},
 					{
 						name: '电脑',
-						component: 'computer'
+						component: 'recommend'
 					},
 					{
 						name: '双摄',
-						component: 'computer'
+						component: 'phone'
 					},
 					{
 						name: '全面屏',
-						component: 'computer'
+						component: 'recommend'
 					},
 					{
 						name: '生活周边',
-						component: 'computer'
+						component: 'phone'
 					},
 					{
 						name: '盒子',
-						component: 'computer'
+						component: 'recommend'
 					}
 				],
 			}

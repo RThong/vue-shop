@@ -77,7 +77,7 @@
 				this.$router.go(-1)
 			},
 			getData() {
-				return db().getProduct(this.$route.params.id)
+				return db.getProduct(this.$route.params.id)
 			},
 			async addCart() {
 				if(this.addCartFlag){
@@ -95,12 +95,12 @@
 					})
 					return
 				}
-				const res = await db().findUser(sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				const res = await db.findUser(sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 				for(let cart of res.cartList){
 					if(cart.id === this.product.id){
-						await db().delCart(cart, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+						await db.delCart(cart, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 						cart.num++
-						await db().addCart(cart, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+						await db.addCart(cart, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 						this.$toast('加入购物车成功', {
 							type: 'success'
 						})
@@ -115,7 +115,7 @@
 				data.price = this.product.price
 				data.checked = 1
 				data.num = '1'
-				await db().addCart(data, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				await db.addCart(data, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 				this.$toast('加入购物车成功', {
 					type: 'success'
 				})

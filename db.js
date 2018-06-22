@@ -96,23 +96,39 @@ const handleRequest = ({ status, data, ...rest }) => {
 	// 	}
 	// })
 
-	//添加product
-	axios.post('https://d.apicloud.com/mcm/api/product',
-	{
-		name: '13.3"笔记本i5 独显',
-		cover: 'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/cf0b9ede4dbbc115f3d2d1b032e97d21.jpg?thumb=1&w=360&h=360',
-		images: ['https://i8.mifile.cn/v1/a1/00766a98-2468-5cc0-ad4b-19b6a4b6c23d!720x792.webp',
-				],
-		price: '5199',
-		intro: '指纹解锁，全金属机身',
-		brief: '2G独显 / 8GB 内存 + 256GB SSD / 第七代 Intel 酷睿i5 处理器 / FHD 全贴合屏幕',
-		tag: '/static/0c55f13eefcb247d5a706ae91cff24c2.png'
-	},
+	//正则
+	var filter = 
+	}
+	axios.get(`https://d.apicloud.com/mcm/api/product?filter=${encodeURIComponent(JSON.stringify({
+		where:{
+			name:{
+				like: '独显'
+			},
+		}
+	}
+	))}`,
 	{
 		headers: {
 			...getHeaders()
 		}
-	})
+	}).then(res => console.log(res.data))
+	//添加product
+	// axios.post('https://d.apicloud.com/mcm/api/product',
+	// {
+	// 	name: '13.3"笔记本i5 独显',
+	// 	cover: 'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/cf0b9ede4dbbc115f3d2d1b032e97d21.jpg?thumb=1&w=360&h=360',
+	// 	images: ['https://i8.mifile.cn/v1/a1/00766a98-2468-5cc0-ad4b-19b6a4b6c23d!720x792.webp',
+	// 			],
+	// 	price: '5199',
+	// 	intro: '指纹解锁，全金属机身',
+	// 	brief: '2G独显 / 8GB 内存 + 256GB SSD / 第七代 Intel 酷睿i5 处理器 / FHD 全贴合屏幕',
+	// 	tag: '/static/0c55f13eefcb247d5a706ae91cff24c2.png'
+	// },
+	// {
+	// 	headers: {
+	// 		...getHeaders()
+	// 	}
+	// })
 
 	//注册
 	// axios.post(`https://d.apicloud.com/mcm/api/user`,

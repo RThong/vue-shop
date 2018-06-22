@@ -8,7 +8,7 @@
 		<div class="app-view-wrapper">
 			
 			<transition :name="transitionName">
-				<keep-alive :exclude="['login','detail']">
+				<keep-alive :exclude="['login','detail', 'search', 'result']">
 					<router-view></router-view>
 				</keep-alive>
 			</transition>

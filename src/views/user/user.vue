@@ -94,7 +94,7 @@
 		},
 		methods: {
 			// login() {
-			// 	const data = db().login('hong', '123456')
+			// 	const data = db.login('hong', '123456')
 			// 	console.log(data)
 			// }
 		},

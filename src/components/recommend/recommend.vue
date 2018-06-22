@@ -77,7 +77,7 @@
 		},
 		methods: {
 			async getData() {
-				this.productList = await db().getAllProduct()
+				this.productList = await db.getAllProduct()
 			}
 		},
 

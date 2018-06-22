@@ -3,12 +3,12 @@
 		<div class="list-navbar">
 			<ul>
 				<li v-for="(item,index) in navList">
-					<a :href="`#${item.id}`" :class="{active: active===index}" @click="active=index">{{item.name}}</a>
+					<a href="javascript:;" :class="{active: active===index}" @click="skip(item,index)">{{item.name}}</a>
 				</li>			
 			</ul>
 		</div>
 		<div class="list-wrap" ref="scrollTarget">
-			<category-list :id="item.id" v-for="(item,index) in navList" :banner="item.banner" :productList="item.category" :key="index">
+			<category-list :ref="item.id" v-for="(item,index) in navList" :banner="item.banner" :productList="item.category" :key="index">
 			</category-list>
 		</div>
 	</div>
@@ -18,6 +18,7 @@
 	export default {
 		data(){
 			return {
+				navTopList: [],
 				scrollTop: 0,
 				active: 0,
 				navList: [
@@ -1053,6 +1054,9 @@
 		components: {
 			categoryList
 		},
+		mounted() {
+			this.scroll()
+		},
 		activated() {
 			this.$store.commit('setHeaderText', '分类')
 			if(!this.$store.state.headerIsShow){
@@ -1064,6 +1068,31 @@
 			this.scrollTop = this.$refs.scrollTarget.scrollTop
 		},
 		methods: {
+			skip(item, index) {
+				this.active = index
+				this.$refs.scrollTarget.scrollTop = this.$refs[item.id][0].$el.offsetTop
+			},
+			scroll() {
+				function debounce(func, delay) {
+					let timeout;
+					return e => {
+						clearTimeout(timeout);
+						timeout = setTimeout(() => {
+							func(e)
+						},delay)
+					};
+				};
+
+				let validate = debounce(e => {
+					for(let i = 0;i < this.navList.length; i++){
+		    		if(e.target.scrollTop < this.$refs[this.navList[i].id][0].$el.offsetTop){
+		    			this.active = i - 1 < 0? 0 : i - 1
+		    			return
+		    		}
+		    	}
+		    }, 380);
+		    this.$refs.scrollTarget.addEventListener('scroll', validate)
+			}
 		},
 		beforeRouteLeave(to, from, next) {
 			if(to.fullPath !== "/category" && to.fullPath !== "/cart"){

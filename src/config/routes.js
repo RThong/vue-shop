@@ -48,7 +48,14 @@ export default [
 	{
 		path: '/search',
 		name: 'search',
-		component: () => import('../views/search/search.vue')
+		component: () => import('../views/search/search.vue'),
+		// children: [
+		// 	{
+		// 		path: 'list',
+		// 		name: 'result',
+		// 		component: () => import('../views/result/result.vue')
+		// 	},
+		// ]
 	},
 	{
 		path: '/login',
@@ -59,6 +66,10 @@ export default [
 		path: '/commodity/detail/:id',
 		name: 'detail',
 		component: () => import('../views/detail/detail.vue')
-		// component: () => import('../views/detail/detail.vue')
-	}
+	},
+	{
+		path: '/search/list',
+		name: 'result',
+		component: () => import('../views/result/result.vue')	
+	},
 ]

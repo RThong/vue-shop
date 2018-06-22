@@ -164,20 +164,20 @@
 				})
 			},
 			async getProductData() {
-				this.productList = await db().getAllProduct()
+				this.productList = await db.getAllProduct()
 			},
 			async getCartList() {
 				try{
-					return db().findUser(sessionStorage.getItem('userId'), sessionStorage.getItem('id'))				
+					return db.findUser(sessionStorage.getItem('userId'), sessionStorage.getItem('id'))				
 				}catch(err){
 					console.log(err)
 				}		
 			},
 			async updateCartList(value) {
-				await db().updateCart(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				await db.updateCart(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			},
 			async delCartList(value) {
-				await db().delCart(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
+				await db.delCart(value, sessionStorage.getItem('userId'), sessionStorage.getItem('id'))
 			}
 		},
 		beforeRouteLeave(to, from, next) {
