@@ -87,8 +87,8 @@
 		},
 		components: {
 			Recommend,
-			Computer: () => import('../../components/computer/computer.vue'),
-			Phone: () => import('../../components/phone/phone.vue')
+			Computer: () => import(/* webpackChunkName: "computer" */ '../../components/computer/computer.vue'),
+			Phone: () => import(/* webpackChunkName: "phone" */ '../../components/phone/phone.vue')
 		},
 		mounted() {
 			this.$store.commit('setHeaderIsShow', false)
@@ -120,6 +120,8 @@
 	}
 </script>
 <style lang="scss" scoped>
+	$mainColor: #ed5b00;
+	$bgColor: #f2f2f2;
 	.header{
 		position: fixed;
     top: -1px;

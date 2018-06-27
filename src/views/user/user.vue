@@ -101,6 +101,7 @@
 	}
 </script>
 <style lang="scss" scoped>
+	$navColor: #3c3c3c;
 	.hd{
 		background-color: #f37d0f;
 		background-image: url(https://m.mi.com/static/img/bg.63c8e19851.png);

@@ -1103,6 +1103,9 @@
 	}
 </script>
 <style lang="scss" scoped>
+	$bgColor: #f2f2f2;
+	$mainColor: #ed5b00;
+	$navColor: #3c3c3c;
 	.active{
 		font-size: 18px !important;
 		color: $mainColor !important;

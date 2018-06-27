@@ -63,6 +63,8 @@
 	}
 </script>
 <style lang="scss" scoped>
+	$bgColor: #f2f2f2;
+	$navColor: #3c3c3c;
 	.app-view{
 		padding-top: 50px;
 	}

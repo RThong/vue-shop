@@ -24,10 +24,10 @@ input{
 	caret-color: #666;
 }
 
-$bgColor: #f2f2f2;
+/*$bgColor: #f2f2f2;
 $mainColor: #ed5b00;
 $bottomColor: #f5f5f5;
-$navColor: #3c3c3c;
+$navColor: #3c3c3c;*/
 
 .app-view{
 	width: 100%;
@@ -137,7 +137,7 @@ img[lazy=loaded]{
 
 .divider-line{
 	height: 8px;
-	background: $bottomColor;
+	background: #f5f5f5;
 }
 .ad-title{
 	height: 42px;

@@ -125,6 +125,7 @@
 	}
 </script>
 <style lang="scss" scoped>
+$navColor: #3c3c3c;
 .mark{
 	font-size: 18px;
 }

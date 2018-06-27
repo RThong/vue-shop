@@ -18,6 +18,7 @@
 	}
 </script>
 <style lang=scss scoped>
+	$mainColor: #ed5b00;
 	.item{
 		margin-bottom: 2px;
 	}

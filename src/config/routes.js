@@ -3,8 +3,8 @@ export default [
 		path: '/',
 		name: 'index',
 		components: {
-			default: () => import('../views/index/index.vue'),
-			footer: () => import('../components/footer/footer.vue'),
+			default: () => import(/* webpackChunkName: "index" */ '../views/index/index.vue'),
+			footer: () => import(/* webpackChunkName: "footer" */ '../components/footer/footer.vue'),
 		},
 		meta: {
 			navIndex: 0,
@@ -15,8 +15,8 @@ export default [
 		path: '/category',
 		name: 'category',
 		components: {
-			default: () => import('../views/category/category.vue'),
-			footer: () => import('../components/footer/footer.vue')
+			default: () => import(/* webpackChunkName: "category" */ '../views/category/category.vue'),
+			footer: () => import(/* webpackChunkName: "footer" */ '../components/footer/footer.vue')
 		},
 		meta: {
 			navIndex: 1,
@@ -27,8 +27,8 @@ export default [
 		path: '/cart',
 		name: 'cart',
 		components: {
-			default: () => import('../views/cart/cart.vue'),
-			footer: () => import('../components/footer/footer.vue')
+			default: () => import(/* webpackChunkName: "cart" */ '../views/cart/cart.vue'),
+			footer: () => import(/* webpackChunkName: "footer" */ '../components/footer/footer.vue')
 		},
 		meta: {
 			navIndex: 2
@@ -38,8 +38,8 @@ export default [
 		path: '/user',
 		name: 'user',
 		components: {
-			default: () => import('../views/user/user.vue'),
-			footer: () => import('../components/footer/footer.vue')
+			default: () => import(/* webpackChunkName: "user" */ '../views/user/user.vue'),
+			footer: () => import(/* webpackChunkName: "footer" */ '../components/footer/footer.vue')
 		},
 		meta: {
 			navIndex: 3
@@ -48,28 +48,21 @@ export default [
 	{
 		path: '/search',
 		name: 'search',
-		component: () => import('../views/search/search.vue'),
-		// children: [
-		// 	{
-		// 		path: 'list',
-		// 		name: 'result',
-		// 		component: () => import('../views/result/result.vue')
-		// 	},
-		// ]
+		component: () => import(/* webpackChunkName: "search" */ '../views/search/search.vue'),
 	},
 	{
 		path: '/login',
 		name: 'login',
-		component: () => import('../views/login/login.vue')
+		component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
 	},
 	{
 		path: '/commodity/detail/:id',
 		name: 'detail',
-		component: () => import('../views/detail/detail.vue')
+		component: () => import(/* webpackChunkName: "detail" */ '../views/detail/detail.vue')
 	},
 	{
 		path: '/search/list',
 		name: 'result',
-		component: () => import('../views/result/result.vue')	
+		component: () => import(/* webpackChunkName: "result" */ '../views/result/result.vue')	
 	},
 ]

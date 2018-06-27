@@ -48,14 +48,7 @@ const config = {
       			sourceMap: true,
       		}
       	},
-      	'sass-loader',
-      	{
-          loader: 'sass-resources-loader',
-          options: {
-            // Provide path to the file with resources
-            resources: path.join(__dirname, '../src/assets/styles/global.scss'),
-          },
-        }, 	
+      	'sass-loader' 	
       	]
       },
       {
@@ -79,8 +72,6 @@ const config = {
 	    template: path.join(__dirname, '../index.html')
 	  }),//html
 	  new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-
 	]
 }
 

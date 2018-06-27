@@ -43,6 +43,7 @@
 	}
 </script>
 <style lang="scss" scoped>
+	$bgColor: #f2f2f2;
 	.header{
 		position: fixed;
 		left: 0;

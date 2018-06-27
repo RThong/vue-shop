@@ -4,8 +4,9 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import VueLazyload from 'vue-lazyload'
 import Toast from './components/toast'
-
+// import Swiper from 'swiper'
 Vue.use(Toast)
+// Vue.use(Swiper)
 
 Vue.use(VueLazyload, {
   // preLoad: 1,

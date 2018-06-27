@@ -52,7 +52,7 @@
 			}
 		},
 		components: {
-			Header: () => import('./components/header/header.vue')
+			Header: () => import(/* webpackChunkName: "header" */ './components/header/header.vue')
 		},
 		computed: {
 			transitionName() {
@@ -148,6 +148,7 @@
 	}
 </script>
 <style lang="scss" scoped>
+	$mainColor: #ed5b00;
 	#app{
 		height: 100%;
 		width: 100%;

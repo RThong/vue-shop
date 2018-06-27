@@ -61,6 +61,7 @@
 	}
 </script>
 <style lang="scss" scoped>
+$mainColor: #ed5b00;
 footer{
 	background: #fff;
 	position: fixed;

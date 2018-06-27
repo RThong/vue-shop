@@ -16,6 +16,7 @@
 	}
 </script>
 <style lang="scss" scoped>
+	$navColor: #3c3c3c;
 	.line{
 		margin-top: 10px;
 		background: #fff;
