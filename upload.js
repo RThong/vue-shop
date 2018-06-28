@@ -7,8 +7,8 @@ const {
 } = {
 	host: 'http://payyzo9fa.bkt.clouddn.com/',
 	bucket: 'vue-shop',
-	ak: 'XlaEyT1ufpq0YE2E9Stpi7cIhNSud8iaxQRYFCrH',
-	sk: 'UdrMBsxfWdTmBQHGcA4MjyFh45OjdEyqOt-mGZjI'
+	ak: 'tvj8heEglh4WHw6FQWEbY_ir9bqLNewLY4wb7akb',
+	sk: 'QO5C_drldhavmy8yJNe3zcnM85YSt4nu3MetZlx9'
 }
 
 const mac = new qiniu.auth.digest.Mac(ak, sk)
@@ -16,20 +16,43 @@ const mac = new qiniu.auth.digest.Mac(ak, sk)
 const config = new qiniu.conf.Config()
 config.zone = qiniu.zone.Zone_z0
 
-
-const key = 'test.txt'
-const file = path.join(__dirname,'./test.txt')
-const options = {
-  scope: bucket + ':' + key
-}
-const formUploader = new qiniu.form_up.FormUploader(config)
-const putExtra = new qiniu.form_up.PutExtra()
-const putPolicy = new qiniu.rs.PutPolicy(options)
-const uploadToken = putPolicy.uploadToken(mac)
-formUploader.putFile(uploadToken, key, file, putExtra, (err, body, info) => {
-  if (err) {
-    console.log(err);
+const doUpload = (key, file) => {
+  const options = {
+    scope: bucket + ':' + key
   }
+  const formUploader = new qiniu.form_up.FormUploader(config)
+  const putExtra = new qiniu.form_up.PutExtra()
+  const putPolicy = new qiniu.rs.PutPolicy(options)
+  const uploadToken = putPolicy.uploadToken(mac)
+  return new Promise((resolve, reject) => {
+    formUploader.putFile(uploadToken, key, file, putExtra, (err, body, info) => {
+      if (err) {
+        return reject(err)
+      }
+      if (info.statusCode === 200) {
+        resolve(body)
+      } else {
+        reject(body)
+      }
+    })
+  })
+}
 
-})
+const publicPath = path.join(__dirname, './dist')
 
+// publicPath/resource/client/...
+const uploadAll = (dir, prefix) => {
+  const files = fs.readdirSync(dir)
+  files.forEach(file => {
+    const filePath = path.join(dir, file)
+    const key = prefix ? `${prefix}/${file}` : file
+    if (fs.lstatSync(filePath).isDirectory()) {
+      return uploadAll(filePath, key)
+    }
+    doUpload(key, filePath)
+      .then(resp => console.log(resp))
+      .catch(err => console.error(err))
+  })
+}
+
+uploadAll(publicPath)

@@ -12,7 +12,7 @@ const config = {
 	output: {
 		filename: '[name].[chunkhash:8].bundle.js',
 		path: path.join(__dirname, '../dist'),
-    // publicPath: 'http://127.0.0.1:8080/'
+    publicPath: 'http://payyzo9fa.bkt.clouddn.com/'
 	},
 	module: {
 		rules: [

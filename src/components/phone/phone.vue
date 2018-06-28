@@ -28,7 +28,7 @@
 	</div>
 </template>
 <script>
-	import '../../../node_modules/swiper/dist/css/swiper.min.scss'
+	import 'swiper/dist/css/swiper.min.scss'
 	import Swiper from 'swiper'
 	import Card from '../card/card.vue'
 	import db from '../../../app.config'

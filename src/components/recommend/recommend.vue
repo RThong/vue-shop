@@ -34,7 +34,7 @@
 	</div>
 </template>
 <script>
-	import '../../../node_modules/swiper/dist/css/swiper.min.scss'
+	import 'swiper/dist/css/swiper.min.scss'
 	import Swiper from 'swiper'
 	import ListOne from '../list-one/list-one.vue'
 	import Card from '../card/card.vue'
