@@ -163,20 +163,24 @@ img[lazy=loaded]{
 }
 
 .icon-vip{
-	background-image: url(/src/assets/images/vip.png);
+	background-image: url(../images/vip.png);
 }
 .icon-service{
-	background-image: url(/src/assets/images/service.png);
+	background-image: url(../images/service.png);
 }
 .icon-wallet{
-	background-image: url(/src/assets/images/wallet.png);
+	background-image: url(../images/wallet.png);
 }
 .icon-fcode{
-	background-image: url(/src/assets/images/fcode.png);
+	background-image: url(../images/fcode.png);
 }
 .icon-mihong{
-	background-image: url(/src/assets/images/mihong.png);
+	background-image: url(../images/mihong.png);
 }
 .icon-setting{
-	background-image: url(/src/assets/images/setting.png);
+	background-image: url(../images/setting.png);
+}
+
+.swiper-pagination-bullet {
+    background: #ddd !important;
 }

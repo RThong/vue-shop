@@ -1,6 +1,7 @@
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const HTMLPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
 const devServer = {
@@ -23,7 +24,7 @@ const config = {
 	entry: path.join(__dirname, '../src/index'),
 	output: {
 		filename: 'bundle.[hash:8].js',
-		path: path.join(__dirname, '../dist'),
+		path: path.join(__dirname, '../public'),
     publicPath: 'http://127.0.0.1:8080/'
 	},
 	module: {
@@ -57,7 +58,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 1024,
+              limit: 8192,
               name: 'resources/[path][name].[hash:8].[ext]'
             }
           }
@@ -72,6 +73,13 @@ const config = {
 	    template: path.join(__dirname, '../index.html')
 	  }),//html
 	  new webpack.HotModuleReplacementPlugin(),
+    //复制static
+    new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, '../static/'),
+      to: 'static/[name].[hash:8].[ext]',
+    }
+    ])
 	]
 }
 

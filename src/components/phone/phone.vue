@@ -28,7 +28,7 @@
 	</div>
 </template>
 <script>
-	import '../../../node_modules/swiper/dist/css/swiper.min.scss'
+	import 'swiper/dist/css/swiper.min.scss'
 	import Swiper from 'swiper'
 	import Card from '../card/card.vue'
 	import db from '../../../app.config'
@@ -37,11 +37,11 @@
 		data() {
 			return {
 				productList: [],
-				cellUrl: ['/static/6d64ef02-bb5c-da49-45cb-7d6861885b29!144x152.webp',
-				'/static/d29e748c-0177-5b4c-d2ab-401070713bac!144x152.webp',
-				'/static/9173298cc0297ce1803c43485e525358.jpg?thumb=1&w=144&h=152',
-				'/static/e560f98a-48bb-25a1-daa2-72bff8cc7c69!144x152.webp',
-				'/static/938f75d98244629b0d29bfc9c4323f8d.png?thumb=1&w=144&h=152'
+				cellUrl: ['http://payyzo9fa.bkt.clouddn.com/static/mifenka.webp',
+				'http://payyzo9fa.bkt.clouddn.com/static/xinpinfabu.webp',
+				'http://payyzo9fa.bkt.clouddn.com/static/xiaomishangou.jpg?thumb=1&w=144&h=152',
+				'http://payyzo9fa.bkt.clouddn.com/static/yijiuhuanxin.webp',
+				'http://payyzo9fa.bkt.clouddn.com/static/huodongpindao.png?thumb=1&w=144&h=152'
 				]
 			}
 		},

@@ -2,6 +2,7 @@ const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HTMLPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
 const config = {
@@ -12,7 +13,7 @@ const config = {
 	output: {
 		filename: '[name].[chunkhash:8].bundle.js',
 		path: path.join(__dirname, '../dist'),
-    // publicPath: 'http://127.0.0.1:8080/'
+    publicPath: 'http://payyzo9fa.bkt.clouddn.com/'
 	},
 	module: {
 		rules: [
@@ -65,7 +66,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 1024,
+              limit: 8192,
               name: 'resources/[path][name].[hash:8].[ext]'
             }
           }
@@ -103,7 +104,13 @@ const config = {
     new HTMLPlugin({
 	    template: path.join(__dirname, '../index.html')
 	  }),//html
-    new webpack.NamedChunksPlugin()
+    new webpack.NamedChunksPlugin(),
+    new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, '../static/'),
+      to: 'static/[name].[ext]',
+    }
+    ])
 	]
 }
 
