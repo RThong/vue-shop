@@ -7,7 +7,7 @@
 		<!-- 用于/search / 进行路由渲染 -->
 		<div class="app-view-wrapper">
 			
-			<transition :name="transitionName">
+			<transition :name="isFirstLoad ? '': transitionName ">
 				<keep-alive :exclude="['login','detail', 'search', 'result']">
 					<router-view></router-view>
 				</keep-alive>
@@ -44,6 +44,8 @@
 	export default {
 		data(){
 			return {
+				isFirstLoad: true,
+				a: ''
 			}
 		},
 		mounted() {
@@ -89,6 +91,10 @@
 				// }
 				// const toDepth = to.path.split('/').length
 				// const fromDepth = from.path.split('/').length
+				if(from.matched.length !== 0){
+					this.isFirstLoad = false
+				}
+				
 				let urlHistory = sessionStorage.getItem('urlHistory')
 
 				 

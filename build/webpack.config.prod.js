@@ -102,7 +102,8 @@ const config = {
       chunkFilename: "style.[contenthash:8].css"
     }),
     new HTMLPlugin({
-	    template: path.join(__dirname, '../index.html')
+	    template: path.join(__dirname, '../index.html'),
+      favicon: path.join(__dirname, '../favicon.ico')
 	  }),//html
     new webpack.NamedChunksPlugin(),
     new CopyWebpackPlugin([

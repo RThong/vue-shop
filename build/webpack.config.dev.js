@@ -70,7 +70,8 @@ const config = {
 	plugins: [
 		new VueLoaderPlugin(),
     new HTMLPlugin({
-	    template: path.join(__dirname, '../index.html')
+	    template: path.join(__dirname, '../index.html'),
+      favicon: path.join(__dirname, '../favicon.ico')
 	  }),//html
 	  new webpack.HotModuleReplacementPlugin(),
     //复制static
