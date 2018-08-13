@@ -1,6 +1,7 @@
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const HTMLPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
 const devServer = {
@@ -23,8 +24,8 @@ const config = {
 	entry: path.join(__dirname, '../src/index'),
 	output: {
 		filename: 'bundle.[hash:8].js',
-		path: path.join(__dirname, '../dist'),
-    publicPath: 'http://127.0.0.1:8080/'
+		path: path.join(__dirname, '../public'),
+    publicPath: 'http://localhost:8080/'
 	},
 	module: {
 		rules: [
@@ -57,7 +58,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 1024,
+              limit: 8192,
               name: 'resources/[path][name].[hash:8].[ext]'
             }
           }
@@ -66,12 +67,25 @@ const config = {
 		]
 	},
 	devServer,
+  resolve: {
+    alias: {
+      'model': path.join(__dirname, '../model.js')
+    }
+  },
 	plugins: [
 		new VueLoaderPlugin(),
     new HTMLPlugin({
-	    template: path.join(__dirname, '../index.html')
+	    template: path.join(__dirname, '../index.html'),
+      favicon: path.join(__dirname, '../favicon.ico')
 	  }),//html
 	  new webpack.HotModuleReplacementPlugin(),
+    //复制static
+    new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, '../static/'),
+      to: 'static/[name].[hash:8].[ext]',
+    }
+    ])
 	]
 }
 

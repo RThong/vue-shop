@@ -38,6 +38,7 @@
 </template>
 <script>
 	import Recommend from '../../components/recommend/recommend.vue'
+	import Phone from '../../components/phone/phone.vue'
 	export default {
 		data() {
 			return {
@@ -87,8 +88,7 @@
 		},
 		components: {
 			Recommend,
-			Computer: () => import(/* webpackChunkName: "computer" */ '../../components/computer/computer.vue'),
-			Phone: () => import(/* webpackChunkName: "phone" */ '../../components/phone/phone.vue')
+			Phone
 		},
 		mounted() {
 			this.$store.commit('setHeaderIsShow', false)
@@ -113,7 +113,7 @@
 				this.$router.push('user')
 			},
 			goSearch() {
-				// this.$store.commit('setPullPageSlide', 1)
+				this.$store.commit('setPullPageSlide', 1)
 				this.$router.push('search')
 			}
 		}

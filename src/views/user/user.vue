@@ -46,10 +46,8 @@
 </template>
 <script>
 	import UiLine from '../../components/line/line.vue'
-	// import db from '../../../app.config'
 	
 	export default {
-		// mixins: [userMixin],
 		data(){
 			return {
 				username: undefined,
@@ -86,18 +84,7 @@
 		},
 		activated() {
 			this.username = sessionStorage.getItem('username')
-		},
-		computed: {
-			// username() {
-			// 	return this.$store.state.user === undefined? undefined : this.$store.state.user.username
-			// }
-		},
-		methods: {
-			// login() {
-			// 	const data = db.login('hong', '123456')
-			// 	console.log(data)
-			// }
-		},
+		}
 	}
 </script>
 <style lang="scss" scoped>

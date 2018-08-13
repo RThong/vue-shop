@@ -18,10 +18,10 @@
 				</router-link>
 			</div>
 			<div class="ad-title">
-				<img v-lazy="'/static/94f27f95-5aef-0d25-e9ca-b9c6777dd9c8!720x80.webp'" alt="">
+				<img v-lazy="'https://i8.mifile.cn/v1/a1/f2635080-3835-53f0-5f80-ac1e50e0784c!720x80.webp'" alt="">
 			</div>
 			
-			<list-one src="/static/21647f78-b335-55c1-2a1d-83c273624436!720x360.webp" tag="/static/289039eb-c3ed-7c26-69c3-5b07b72a797d.webp?w=120&h=48">
+			<list-one src="https://i8.mifile.cn/v1/a1/21647f78-b335-55c1-2a1d-83c273624436!720x360.webp" tag="http://payyzo9fa.bkt.clouddn.com/static/time-limit.png">
 				<span slot="l1-name">15.6"笔记本Pro i5 8GB</span>
 				<span slot="l1-price">¥4999</span>
 				<span slot="l2-name">更强悍的专业笔记本，全金属强化机身11111</span>
@@ -38,23 +38,23 @@
 	import Swiper from 'swiper'
 	import ListOne from '../list-one/list-one.vue'
 	import Card from '../card/card.vue'
-	import db from '../../../app.config'
+	import db from 'model'
 
 	export default {
 		name: 'recommend',
 		data() {
 			return {
 				productList: [],
-				swiperUrl: ['/static/a0ff3dc30027f3b615bfe03f1d306ee5.jpg?thumb=1&w=720&h=360',
-				'/static/37dfdc929ee9a4313facb0b23ebcd721.jpg?thumb=1&w=720&h=360',
-				'/static/7bf60972f79f94a4b69a0666a57121b2.jpg?thumb=1&w=720&h=360',
-				'/static/70a33170b9d282f6e371bbeb83c90cd7.jpg?thumb=1&w=720&h=360'
+				swiperUrl: ['https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a0ff3dc30027f3b615bfe03f1d306ee5.jpg?thumb=1&w=720&h=360',
+				'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/37dfdc929ee9a4313facb0b23ebcd721.jpg?thumb=1&w=720&h=360',
+				'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/7bf60972f79f94a4b69a0666a57121b2.jpg?thumb=1&w=720&h=360',
+				'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/70a33170b9d282f6e371bbeb83c90cd7.jpg?thumb=1&w=720&h=360'
 				],
-				cellUrl: ['/static/6d64ef02-bb5c-da49-45cb-7d6861885b29!144x152.webp',
-				'/static/d29e748c-0177-5b4c-d2ab-401070713bac!144x152.webp',
-				'/static/9173298cc0297ce1803c43485e525358.jpg?thumb=1&w=144&h=152',
-				'/static/e560f98a-48bb-25a1-daa2-72bff8cc7c69!144x152.webp',
-				'/static/938f75d98244629b0d29bfc9c4323f8d.png?thumb=1&w=144&h=152'
+				cellUrl: ['http://payyzo9fa.bkt.clouddn.com/static/mifenka.webp',
+				'http://payyzo9fa.bkt.clouddn.com/static/xinpinfabu.webp',
+				'http://payyzo9fa.bkt.clouddn.com/static/xiaomishangou.jpg?thumb=1&w=144&h=152',
+				'http://payyzo9fa.bkt.clouddn.com/static/yijiuhuanxin.webp',
+				'http://payyzo9fa.bkt.clouddn.com/static/huodongpindao.png?thumb=1&w=144&h=152'
 				]
 			}
 		},

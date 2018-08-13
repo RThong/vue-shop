@@ -8,7 +8,7 @@
 	</div>
 </template>
 <script>
-	import db from '../../../app.config'
+	import db from 'model'
 	import cardOne from '../../components/card-one/card-one.vue'
 	export default {
 		name: 'result',

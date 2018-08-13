@@ -1,31 +1,23 @@
 <template>
 	<div id="app">
-		<!-- 跟/category和/cart不是一个动画  要单独组件 -->
+		<!-- 每个路由对应的页面有多个组件组成，header footer是单独组件，有的路由不会显示footer和header -->
 		<transition name="slide-up">
 			<Header v-show="headerIsShow" :isSearchPage="false">{{title}}</Header>
 		</transition>
-		<!-- 用于/search / 进行路由渲染 -->
-		<div class="app-view-wrapper">
-			
-			<transition :name="transitionName">
+		<!-- 主要view渲染区域 -->
+		<div class="app-view-wrapper">			
+			<transition :name="isFirstLoad ? '': transitionName ">
 				<keep-alive :exclude="['login','detail', 'search', 'result']">
 					<router-view></router-view>
 				</keep-alive>
 			</transition>
-
-			<!-- <transition name="slide-down">
- 				<router-view name="footer"></router-view>
-		
-			</transition> -->
 		</div>
-		<transition name="slide-down">
-				<!-- <router-view name="footer" v-show="footerIsShow" :mode="footerIsShow?'out-in':''"></router-view>
- -->	
- 				<router-view name="footer"></router-view>
 		
-			</transition>
+		<transition name="slide-down">
+			<router-view name="footer"></router-view>		
+		</transition>
 
-
+		<!-- 购物车footer -->
 		<div v-if="resultIsShow" class="result">
 			<div class="result-box left-box">
 				<p>总{{cartCount}}件 金额：</p>
@@ -44,12 +36,11 @@
 	export default {
 		data(){
 			return {
+				isFirstLoad: true,
+				a: ''
 			}
 		},
 		mounted() {
-			if(!sessionStorage.getItem('urlHistory')){
-				sessionStorage.setItem('urlHistory', '')
-			}
 		},
 		components: {
 			Header: () => import(/* webpackChunkName: "header" */ './components/header/header.vue')
@@ -67,9 +58,6 @@
 			resultIsShow() {
 				return this.$store.state.resultIsShow
 			},
-			// footerIsShow() {
-			// 	return this.$store.state.footerIsShow
-			// },
 			cartList() {
 				return this.$store.state.cartList
 			},
@@ -81,49 +69,55 @@
 			}
 		},
 		watch: {
-			//匹配底部nav改变路由
+			//底部nav切换,根据sessionstorage中存的urlhstory判断是否访问过这个路由，来进行不同的切换动画
 			'$route' (to, from) {
-				// console.log(from.matched, to.meta)
-				// if(from.matched.length === 0 || from.meta.navIndex === undefined || to.meta.navIndex === undefined){
+				if(from.matched.length !== 0){
+					this.isFirstLoad = false
+				}
+
+				//维护一个浏览记录栈来处理回退前进动画
+				this.$store.commit('setUrlStack', to.path)
+
+				//nav footer还是用index去区别不同动画效果
+				if(to.meta.navIndex !== 'undefined') {
+					this.$store.commit('setNavIndex', to.meta.navIndex)
+				}
+
+
+				
+				// this.$store.commit('setUrlQueue', to.path)	
+				// let urlHistory = sessionStorage.getItem('urlHistory')
+				// if(to.meta.key) {
+
+				// }
+				// if (from.meta.key) {
+				// 	if (to.meta.key() > from.meta.key()) {
+				// 		this.$store.commit('setPullPageSlide', 1)
+				// 	} else {
+				// 		this.$store.commit('setPullPageSlide', -1)
+				// 	}
+				// }
+
+				// if(from.meta.navIndex !== undefined && to.meta.navIndex !== undefined){
+				// 	const fromIndex = from.meta.navIndex
+				// 	const toIndex = to.meta.navIndex
+
+				// 	// if(urlHistory.indexOf(to.path) === -1){
+				// 	// 	urlHistory += to.path
+				// 	// }
+				// 	// sessionStorage.setItem('urlHistory', urlHistory)
+				// 	// console.log(fromIndex,toIndex)
+
+				// 	this.$store.commit('setNavIndex', toIndex)
+
+				// 	if(toIndex < fromIndex)	{
+				// 		this.$store.commit('setPullPageSlide', -1)
+				// 	}
+				// 	else if(toIndex > fromIndex) {
+				// 		this.$store.commit('setPullPageSlide', 1)
+				// 	}
 				// 	return
 				// }
-				// const toDepth = to.path.split('/').length
-				// const fromDepth = from.path.split('/').length
-				let urlHistory = sessionStorage.getItem('urlHistory')
-
-				 
-
-				//底部nav切换
-				if(from.meta.navIndex !== undefined && to.meta.navIndex !== undefined){
-					const fromIndex = from.meta.navIndex
-					const toIndex = to.meta.navIndex
-
-					if(urlHistory.indexOf(to.path) === -1){
-						urlHistory += to.path
-					}
-					sessionStorage.setItem('urlHistory', urlHistory)
-					console.log(fromIndex,toIndex)
-
-					this.$store.commit('setNavIndex', toIndex)
-
-					if(toIndex < fromIndex)	{
-						this.$store.commit('setPullPageSlide', -1)
-					}
-					else if(toIndex > fromIndex) {
-						this.$store.commit('setPullPageSlide', 1)
-					}
-					return
-				}
-				else{
-					if(urlHistory.indexOf(to.path) === -1){
-						urlHistory += to.path
-						sessionStorage.setItem('urlHistory', urlHistory)
-						this.$store.commit('setPullPageSlide', 1)
-					}
-					else{
-						this.$store.commit('setPullPageSlide', -1)
-					}
-				}
 				
 			}
 		},

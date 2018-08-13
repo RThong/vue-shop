@@ -26,12 +26,23 @@ const router = createRouter()
 const store = createStore()
 
 // router.beforeEach((to, from, next) => {
-//   console.log(sessionStorage.getItem('user'))
-//   next(vm => {
-//     console.log(vm)
-//   })
+
+//   console.log('before', from, to)
+//   if(from.name) {
+//   	sessionStorage.setItem('lastUrl', from.path)
+//   }
+//   next()
 // })
-new Vue({
+
+// router.afterEach((to, from) => {
+// 	if(sessionStorage.getItem('lastUrl') && sessionStorage.getItem('lastUrl') === to.path) {
+// 		console.log('!!!!!')
+// 		this.$store.commit('setPullPageSlide', -1)
+// 	}
+// 	console.log('after', from, to)
+
+// })
+const vm = new Vue({
 	el: '#root',
 	router,
 	store,

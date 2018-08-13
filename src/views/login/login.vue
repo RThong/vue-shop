@@ -21,8 +21,7 @@
 	</div>
 </template>
 <script>
-	import db from '../../../app.config'
-
+	import db from 'model'
 	export default {
 		name: 'login',
 		data() {

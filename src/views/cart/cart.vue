@@ -31,14 +31,12 @@
 <script>
 	import cartCard from '../../components/cart-card/cart-card.vue'
 	import Card from '../../components/card/card.vue'
-	import db from '../../../app.config'
-
+	// import db from '../../../app.config'
+	import db from 'model'
 	export default {
-		// mixins: [userMixin],
 		data(){
 			return {
 				isLogin: false,
-				// cartList: [],
 				productList: [],
 				btnLock: false
 			}

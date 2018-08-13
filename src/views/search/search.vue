@@ -45,7 +45,7 @@
 		},
 		methods: {
 			goBack() {
-				// this.$store.commit('setPullPageSlide', -1)
+				this.$store.commit('setPullPageSlide', -1)
 				this.$router.go(-1)
 			},
 			search() {

@@ -2,6 +2,7 @@ const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HTMLPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
 const config = {
@@ -65,7 +66,7 @@ const config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 1024,
+              limit: 8192,
               name: 'resources/[path][name].[hash:8].[ext]'
             }
           }
@@ -92,18 +93,31 @@ const config = {
       name: 'manifest'
     }
   },
+  resolve: {
+    alias: {
+      'model': path.join(__dirname, '../model.js')
+    }
+  },
 	plugins: [
 		new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      // filename: "style.[contenthash].css",
-      chunkFilename: "style.[contenthash:8].css"
+      filename: "[name].[contenthash:8].css",
+      // chunkFilename: "style.[contenthash:8].css"
     }),
     new HTMLPlugin({
-	    template: path.join(__dirname, '../index.html')
+	    template: path.join(__dirname, '../index.html'),
+      favicon: path.join(__dirname, '../favicon.ico')
 	  }),//html
-    new webpack.NamedChunksPlugin()
+    //路由组件异步打包名称
+    new webpack.NamedChunksPlugin(),
+    new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, '../static/'),
+      to: 'static/[name].[ext]',
+    }
+    ])
 	]
 }
 

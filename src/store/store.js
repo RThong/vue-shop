@@ -1,5 +1,4 @@
 import Vuex from 'vuex'
-import db from '../../app.config'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -9,10 +8,11 @@ export default () => {
 		state: {
 			curNavIndex: 0,
 			headerIsShow: false,
-			pullPageSlide: '',
+			pullPageSlide: 'slide-left',
 			headerText: '',
 			resultIsShow: false,
-			cartList: []
+			cartList: [],
+			urlStack: []//浏览记录栈
 		},
 		getters: {
 			cartCount(state) {
@@ -49,10 +49,6 @@ export default () => {
 			setHeaderIsShow(state, status) {
 				state.headerIsShow = status
 			},
-			//设置footer显示
-			// setFooterIsShow(state, status) {
-			// 	state.footerIsShow = status
-			// },
 			//设置result显示
 			setResultIsShow(state, status) {
 				state.resultIsShow = status
@@ -76,6 +72,27 @@ export default () => {
 				//如果没有cart  footer就显示
 				if(data.length === 0){
 					state.footerIsShow = true
+				}
+			},
+			setUrlStack(state, url) {
+
+				// if(state.urlStack[1] === url) {
+				// 	state.pullPageSlide = 'slide-right'
+				// 	state.urlStack.shift()
+				// }
+				// else{
+				// 	state.pullPageSlide = 'slide-left'
+				// 	state.urlStack.unshift(url)
+				// }
+				let length = state.urlStack.length
+				//length-1是当前页面path,-2是前一个页面的path,准备跳转页面的path是传入的url
+				if(state.urlStack[length - 2] === url) {
+					state.pullPageSlide = 'slide-right'
+					state.urlStack.pop()
+				}
+				else{
+					state.pullPageSlide = 'slide-left'
+					state.urlStack.push(url)
 				}
 			}
 		}

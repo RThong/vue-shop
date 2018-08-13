@@ -44,7 +44,7 @@
 <script>
 	import 'swiper/dist/css/swiper.min.scss'
 	import Swiper from 'swiper'
-	import db from '../../../app.config'
+	import db from 'model'
 	export default {
 		name: 'detail',
 		data() {
